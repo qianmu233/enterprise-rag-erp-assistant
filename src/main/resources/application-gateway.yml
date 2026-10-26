@@ -1,0 +1,37 @@
+# 显式启用 gateway Profile 后，在原有模型之外增加独立 Gateway 路由。
+# Spring 列表按整体覆盖，因此完整保留原有五个模型及 DeepSeek 默认项。
+app:
+  models:
+    - id: deepseek-chat
+      label: DeepSeek Chat（通用）
+      provider: deepseek
+      model-name: deepseek-chat
+      default: true
+    - id: deepseek-reasoner
+      label: DeepSeek R1（推理）
+      provider: deepseek
+      model-name: deepseek-reasoner
+    - id: qwen-max
+      label: 通义千问 Max
+      provider: openai
+      model-name: qvq-max-2025-03-25
+    - id: qwen-turbo
+      label: 通义千问 Turbo
+      provider: openai
+      model-name: qwen-turbo
+    - id: gemini-2.0-flash
+      label: Gemini 2.0 Flash
+      provider: google-genai
+      model-name: gemini-2.0-flash
+    - id: gateway-chat
+      label: Python Model Gateway（本地）
+      provider: gateway
+      model-name: gateway-chat
+      default: false
+  gateway:
+    base-url: http://127.0.0.1:8001/v1
+    # 仅本地协议测试凭据；不使用第三方模型密钥。
+    api-key: local-gateway-test-key
+    model: gateway-chat
+    timeout: 30s
+    max-retries: 0

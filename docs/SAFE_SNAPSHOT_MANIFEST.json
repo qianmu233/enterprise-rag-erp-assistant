@@ -1,0 +1,2442 @@
+{
+  "schema": "p2-safe-snapshot-v1",
+  "source_file_baseline": "3efdbd00840f5f168437c5a77244b97a98368555",
+  "new_git_root_without_inherited_history": true,
+  "file_count_including_manifest": 290,
+  "manifest_own_hash_excluded": true,
+  "files": [
+    {
+      "path": ".dockerignore",
+      "bytes": 55,
+      "sha256": "fd1b4d81368ae489db4336f0d2bd047df37332a3c0542a875f79551c1b795f6c",
+      "base_sha256": null,
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": ".gitattributes",
+      "bytes": 189,
+      "sha256": "3754e7cdef8c5149177fa0fa9a0af60a7f4a71643f7cded268f396af6624fab3",
+      "base_sha256": null,
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 255,
+      "sha256": "80d8585114b02106be6c3000600f2f95217ef20b9ecff613a03b867381c23074",
+      "base_sha256": null,
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": "Dockerfile",
+      "bytes": 400,
+      "sha256": "99bba72f7c1be4d16c3347e63a1d314a64b24d2f81327eb87f1dd06a9339025c",
+      "base_sha256": "99bba72f7c1be4d16c3347e63a1d314a64b24d2f81327eb87f1dd06a9339025c",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "base_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "NOTICE",
+      "bytes": 1618,
+      "sha256": "03b06c0a90527cc211204109da35c2a86827f41517c42b170e29a8fd6ddf4438",
+      "base_sha256": "222db4c755478fafc2e1758ffdb87c1967c9fc4ca9bbf32fe3046c0cc372cc45",
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": "P2_INTERVIEW_GUIDE.md",
+      "bytes": 14790,
+      "sha256": "5c378dfde7dfa6a912ff8f1b9ea4f698979f32ac8ca09b81d0102423e23327f8",
+      "base_sha256": "5c378dfde7dfa6a912ff8f1b9ea4f698979f32ac8ca09b81d0102423e23327f8",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "README.md",
+      "bytes": 9359,
+      "sha256": "6f69090983894ebb3b06dc64886deb431a155b76dc9af906b5da09470a34373e",
+      "base_sha256": "52e1088197b04caf433fc6757275a405e8d28889a9139c1c7edbe909a1d12360",
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": "README_EN.md",
+      "bytes": 1560,
+      "sha256": "1ea026771af0240fa2f5744fde765adcf05925759fdc460b8662c1709f18c3ef",
+      "base_sha256": null,
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": "TEST_REPORT.md",
+      "bytes": 7540,
+      "sha256": "3ae9db73f649c158b17d89efc0a21b061ab7f5883036070b4fae6a1a5ab19431",
+      "base_sha256": "627db47f9f5fec50760dbf1b007f2a6e794dc0927e2d49ac27897f7041aa7134",
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": "deploy/settings.xml",
+      "bytes": 460,
+      "sha256": "56cbc4e30dbdb561b0f4c61a96b99cffc89b94fe69adae1ae2792867596766db",
+      "base_sha256": "56cbc4e30dbdb561b0f4c61a96b99cffc89b94fe69adae1ae2792867596766db",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "docker-compose.yml",
+      "bytes": 2518,
+      "sha256": "6b34cdf77d8b9650c9c57f22965b97ba975a5151b3ccb9777051981698000538",
+      "base_sha256": "6b34cdf77d8b9650c9c57f22965b97ba975a5151b3ccb9777051981698000538",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/SAFE_SNAPSHOT_AUDIT.md",
+      "bytes": 8623,
+      "sha256": "1a1eabf538da9e52dcf80572eb8dc20039bea70d5363faab910175ac04016008",
+      "base_sha256": null,
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/SYNTHETIC_DATA.md",
+      "bytes": 2451,
+      "sha256": "b8c1c8bc68c9024fdcc8669287c3121c56bc213826eb01ac12149a368cca7f15",
+      "base_sha256": null,
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/licenses/EMBEDDING-LICENSE.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "base_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/licenses/HIGHLIGHT-LICENSE.txt",
+      "bytes": 1514,
+      "sha256": "6c081431591d9df696c82dc598fe1423765b8a299b200ed00b281afd0f64c490",
+      "base_sha256": "6c081431591d9df696c82dc598fe1423765b8a299b200ed00b281afd0f64c490",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/licenses/MARKED-LICENSE.txt",
+      "bytes": 2942,
+      "sha256": "8e3a3f82f59a60958f56ca08f445647c32a4733dc7ca6c2c46f6eb898471ab9c",
+      "base_sha256": "8e3a3f82f59a60958f56ca08f445647c32a4733dc7ca6c2c46f6eb898471ab9c",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/model-gateway.md",
+      "bytes": 11914,
+      "sha256": "b521120d40cf6aa758f35d9b2bdb5b7f7131f3986415355840682f6726070c27",
+      "base_sha256": "b521120d40cf6aa758f35d9b2bdb5b7f7131f3986415355840682f6726070c27",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/p2-architecture-review.md",
+      "bytes": 13904,
+      "sha256": "795dbd2afabcacf61cb49a74deb946560491c9f5c7474cac89675547b4f43ec8",
+      "base_sha256": "795dbd2afabcacf61cb49a74deb946560491c9f5c7474cac89675547b4f43ec8",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/p2-demo.md",
+      "bytes": 7764,
+      "sha256": "06e85d4e92f3c42c8d5582cfe54a1db6c8155a67f85a641a902023251876fad0",
+      "base_sha256": "06e85d4e92f3c42c8d5582cfe54a1db6c8155a67f85a641a902023251876fad0",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/p2-final-audit.md",
+      "bytes": 9544,
+      "sha256": "342fc265368ee26697fbc382f11b125204f25d26f58718083990cbadcc48ac2f",
+      "base_sha256": "342fc265368ee26697fbc382f11b125204f25d26f58718083990cbadcc48ac2f",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/p2-rag-quality-comparison.md",
+      "bytes": 16474,
+      "sha256": "2805f8febf0676f3f6174c6b2a771c7b9a2e64e3f9ce09179f937019f885853e",
+      "base_sha256": "2805f8febf0676f3f6174c6b2a771c7b9a2e64e3f9ce09179f937019f885853e",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/p2-rag-quality-diagnosis.md",
+      "bytes": 21792,
+      "sha256": "007b1294fbedbc80658e6e9ca272bca7e0a118cc24574aec2781563253ef14c3",
+      "base_sha256": "007b1294fbedbc80658e6e9ca272bca7e0a118cc24574aec2781563253ef14c3",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/publication-safety.md",
+      "bytes": 1402,
+      "sha256": "6ef8946f6738bc2e746aa18b00decf1e292af0706974d0ddb8e9d16763f41ba7",
+      "base_sha256": null,
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/publication-sync.md",
+      "bytes": 1755,
+      "sha256": "355ecc9751ec4e485a1abf8dacb322913f9d5ce7efa3f774720e98de6333c889",
+      "base_sha256": null,
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/rag-evaluation-summary.md",
+      "bytes": 10832,
+      "sha256": "93bda938c972f2db6b487d21f8e949e1f4d9041932d47e0a8e11f347947670d7",
+      "base_sha256": "93bda938c972f2db6b487d21f8e949e1f4d9041932d47e0a8e11f347947670d7",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/rag-optimization-review.md",
+      "bytes": 52711,
+      "sha256": "af5d12749a89ccbcf60cfcd4ebaaa29f701bead7cff90aa7ea4cb9cdb0285ffe",
+      "base_sha256": "af5d12749a89ccbcf60cfcd4ebaaa29f701bead7cff90aa7ea4cb9cdb0285ffe",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/readme-review.md",
+      "bytes": 853,
+      "sha256": "cb22f54816ceafa1f1000c80751d7a96db623195aa5afdf2e5aa0b487ae2af69",
+      "base_sha256": null,
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": "docs/third-party-resources.md",
+      "bytes": 3977,
+      "sha256": "8e712b2267173b41d7945d3c2e6a0a0479125608dc1597eac361eefc012ff25b",
+      "base_sha256": null,
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": "model-gateway/app.py",
+      "bytes": 6977,
+      "sha256": "e7fbf6b7630230f35274dcab4e9412d77cb2d32760d86b93cc82a77a19d387d3",
+      "base_sha256": "e7fbf6b7630230f35274dcab4e9412d77cb2d32760d86b93cc82a77a19d387d3",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "model-gateway/config.py",
+      "bytes": 1473,
+      "sha256": "da66c9b71db0f6d9cab5bdf2f7f28da7642c836c273a8931368e453ce6fde490",
+      "base_sha256": "da66c9b71db0f6d9cab5bdf2f7f28da7642c836c273a8931368e453ce6fde490",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "model-gateway/contracts.py",
+      "bytes": 5349,
+      "sha256": "8db3c5e1a78a880c1929a98d2e911bbfe066717b4c5284884fb06c6fb99f2021",
+      "base_sha256": "8db3c5e1a78a880c1929a98d2e911bbfe066717b4c5284884fb06c6fb99f2021",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "model-gateway/pyproject.toml",
+      "bytes": 439,
+      "sha256": "7ba2f68b30334096f5fbeaa4f0173694f7e7d1eaf0467e5fdd3e70f5b17ca0ac",
+      "base_sha256": "7ba2f68b30334096f5fbeaa4f0173694f7e7d1eaf0467e5fdd3e70f5b17ca0ac",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "model-gateway/requirements.lock",
+      "bytes": 355,
+      "sha256": "cffa23412ea0644e95d4e6b098e3e3a2d234b9cd98347a6a4d16f82aebfd5beb",
+      "base_sha256": "cffa23412ea0644e95d4e6b098e3e3a2d234b9cd98347a6a4d16f82aebfd5beb",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "model-gateway/tests/fake_model.py",
+      "bytes": 5007,
+      "sha256": "1d33b65ac3af64ade23ca5a07c5d30a829ddee3240e450bbd2e140e89edbd312",
+      "base_sha256": "1d33b65ac3af64ade23ca5a07c5d30a829ddee3240e450bbd2e140e89edbd312",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "model-gateway/tests/test_gateway.py",
+      "bytes": 18781,
+      "sha256": "1ec4bfe2143927c45f45241c2dd16008a5c3b2489b48945f398d9f47b6561613",
+      "base_sha256": "1ec4bfe2143927c45f45241c2dd16008a5c3b2489b48945f398d9f47b6561613",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "model-gateway/upstream.py",
+      "bytes": 8204,
+      "sha256": "a3d16f6856139b2b385360452bec3e5fad9e4e577bfa0cf536110c1e98c0ee3a",
+      "base_sha256": "a3d16f6856139b2b385360452bec3e5fad9e4e577bfa0cf536110c1e98c0ee3a",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "pom.xml",
+      "bytes": 7726,
+      "sha256": "2b7d25b8d100a45389ea8ffa5bc710be62e8ed852d3f55eeeb1c2b78d55133c1",
+      "base_sha256": "2b7d25b8d100a45389ea8ffa5bc710be62e8ed852d3f55eeeb1c2b78d55133c1",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "scripts/rag_offline_experiments.py",
+      "bytes": 10666,
+      "sha256": "66b62de0fbabbbc4387379158ce511614fb811530ada7f9637c2dd27931e4e2e",
+      "base_sha256": "66b62de0fbabbbc4387379158ce511614fb811530ada7f9637c2dd27931e4e2e",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "scripts/test-model-gateway.ps1",
+      "bytes": 5831,
+      "sha256": "f637c0dbf9c2663f8518b617ba35a6f62d20feb01756ebb4947812e7e37ce950",
+      "base_sha256": "f637c0dbf9c2663f8518b617ba35a6f62d20feb01756ebb4947812e7e37ce950",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "scripts/tests/test_rag_offline_experiments.py",
+      "bytes": 9602,
+      "sha256": "bade0e6981a915659792622437f5e68738cab32bcde9cea7cd56039e1fcde913",
+      "base_sha256": "bade0e6981a915659792622437f5e68738cab32bcde9cea7cd56039e1fcde913",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/RagDemoApplication.java",
+      "bytes": 555,
+      "sha256": "1d257e7f70de4f2d4dbc51dad566fdb43f02ae674badeca01c66367f165f40a4",
+      "base_sha256": "1d257e7f70de4f2d4dbc51dad566fdb43f02ae674badeca01c66367f165f40a4",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/billing/BillingManagementService.java",
+      "bytes": 7294,
+      "sha256": "1e5d38992c7038f549bc2632252558d4ee54ed3df946073970d15ee722de7f6c",
+      "base_sha256": "1e5d38992c7038f549bc2632252558d4ee54ed3df946073970d15ee722de7f6c",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/billing/BillingService.java",
+      "bytes": 11925,
+      "sha256": "c90a03990cf9c9bdde9e65b56b9f2c4a3cd57962ed29f51a3406c8f47c47aa48",
+      "base_sha256": "c90a03990cf9c9bdde9e65b56b9f2c4a3cd57962ed29f51a3406c8f47c47aa48",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/DocumentLoaderService.java",
+      "bytes": 18216,
+      "sha256": "3ebdb0d4b693fb6545a97ac1c0032cd526ccdf6d7aed5fff7b6cda70a373137f",
+      "base_sha256": "3ebdb0d4b693fb6545a97ac1c0032cd526ccdf6d7aed5fff7b6cda70a373137f",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/ErpAssistantService.java",
+      "bytes": 28803,
+      "sha256": "2bef348240152a0d91e3bef33d5c852cd58e0fc9ff10d9eddc11c7ddd276eafa",
+      "base_sha256": "2bef348240152a0d91e3bef33d5c852cd58e0fc9ff10d9eddc11c7ddd276eafa",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/GatewayChatModel.java",
+      "bytes": 1170,
+      "sha256": "12ee6fda3a093d4c1756cfa559ef6f6ba62ef8cf6bda1afe799cdc2a98dc3497",
+      "base_sha256": "12ee6fda3a093d4c1756cfa559ef6f6ba62ef8cf6bda1afe799cdc2a98dc3497",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/ModelRegistry.java",
+      "bytes": 6989,
+      "sha256": "8aabe0c1e989aff44cb688f3299ad0e7d27294982a9bd8b368f57f33c4a4decf",
+      "base_sha256": "8aabe0c1e989aff44cb688f3299ad0e7d27294982a9bd8b368f57f33c4a4decf",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/chart/capture/ToolResultRecorder.java",
+      "bytes": 11630,
+      "sha256": "4c3b2a13f9972ed97cff4c46cf7494aae8ac5cf69b70b771842700a6b76821ec",
+      "base_sha256": "4c3b2a13f9972ed97cff4c46cf7494aae8ac5cf69b70b771842700a6b76821ec",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/chart/compile/ChartCompiler.java",
+      "bytes": 41312,
+      "sha256": "568ef74fbb5d06de28f90bbaf5488aa663548ae8e9c897b8acd7064365263ba0",
+      "base_sha256": "568ef74fbb5d06de28f90bbaf5488aa663548ae8e9c897b8acd7064365263ba0",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/chart/compile/ChartPlanFactory.java",
+      "bytes": 42733,
+      "sha256": "2ef73190b4db662e2af25d32f8fd3ad657e477c18e11852cb6fb223b2d55d377",
+      "base_sha256": "2ef73190b4db662e2af25d32f8fd3ad657e477c18e11852cb6fb223b2d55d377",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/chart/compile/ChartPlanValidator.java",
+      "bytes": 21252,
+      "sha256": "e8fe89a5595f66f68a0784e2078b4e4f673f6f0af6d75e6cb1fb056037dbf971",
+      "base_sha256": "e8fe89a5595f66f68a0784e2078b4e4f673f6f0af6d75e6cb1fb056037dbf971",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/chart/model/BusinessToolResult.java",
+      "bytes": 786,
+      "sha256": "652d1a87c90e3668e7c57543787a57bfce35813db2b07b5776989bcd1f7b61f2",
+      "base_sha256": "652d1a87c90e3668e7c57543787a57bfce35813db2b07b5776989bcd1f7b61f2",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/chart/model/ChartPlan.java",
+      "bytes": 1428,
+      "sha256": "486fc7344bbc322b7cc8737f6971af48da17641f69886edfdf84250ed9d0b691",
+      "base_sha256": "486fc7344bbc322b7cc8737f6971af48da17641f69886edfdf84250ed9d0b691",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/chart/model/TraceChartContext.java",
+      "bytes": 763,
+      "sha256": "3d0630c882825c9426b5162fb8721c39bf9414c0a703e9ce59b6ab714f1179d2",
+      "base_sha256": "3d0630c882825c9426b5162fb8721c39bf9414c0a703e9ce59b6ab714f1179d2",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/chart/protocol/ChartOptionsValidator.java",
+      "bytes": 2260,
+      "sha256": "26116da62fe39b490ea8dbc5c9e268c40661ffa4b69805f076bbbeee2a680ba2",
+      "base_sha256": "26116da62fe39b490ea8dbc5c9e268c40661ffa4b69805f076bbbeee2a680ba2",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/chart/protocol/ChartSpecCodec.java",
+      "bytes": 17440,
+      "sha256": "0463a3f2e511c6bc03fbe66a73dac42954cf7654d1643d47bbb383bf2a377249",
+      "base_sha256": "0463a3f2e511c6bc03fbe66a73dac42954cf7654d1643d47bbb383bf2a377249",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/chart/selection/ChartSelectionService.java",
+      "bytes": 7158,
+      "sha256": "0944120c144f78fa8dae310ff435652902af477bad2e00760c64c2c82ea8f480",
+      "base_sha256": "0944120c144f78fa8dae310ff435652902af477bad2e00760c64c2c82ea8f480",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/chart/tool/ChartPlanToolCallback.java",
+      "bytes": 12418,
+      "sha256": "6fca4052aab8c83b793ba5830f9c0c9a96cee129f45a23d820d3d574a68482fe",
+      "base_sha256": "6fca4052aab8c83b793ba5830f9c0c9a96cee129f45a23d820d3d574a68482fe",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/client/AssistantClientProvider.java",
+      "bytes": 15073,
+      "sha256": "8e9264b9f65db6f164caa888c9123ce2b5f637d507c1a04f651beba66f952ed7",
+      "base_sha256": "8e9264b9f65db6f164caa888c9123ce2b5f637d507c1a04f651beba66f952ed7",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/dto/ChartSelection.java",
+      "bytes": 279,
+      "sha256": "a8fe097f456c4d8d6ca41769249faaebda843d41827937db0a75fb784d0856c3",
+      "base_sha256": "a8fe097f456c4d8d6ca41769249faaebda843d41827937db0a75fb784d0856c3",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/dto/ChatAnswerResult.java",
+      "bytes": 793,
+      "sha256": "5681361a90bec354646ea623260d106f3c9e7d771a87256936e232007e7b3d7d",
+      "base_sha256": "5681361a90bec354646ea623260d106f3c9e7d771a87256936e232007e7b3d7d",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/dto/ChatStreamFrame.java",
+      "bytes": 212,
+      "sha256": "cc1323dc8e0471c1bb309e760a7e4f1f4561599b0d0fa127df9a255041644b01",
+      "base_sha256": "cc1323dc8e0471c1bb309e760a7e4f1f4561599b0d0fa127df9a255041644b01",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/dto/DocSnippet.java",
+      "bytes": 504,
+      "sha256": "e992d03fb02ae4e99200eb75d56ce503e7e2a4a6f0bf881cef549cb9198d7005",
+      "base_sha256": "e992d03fb02ae4e99200eb75d56ce503e7e2a4a6f0bf881cef549cb9198d7005",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/dto/RagSearchResult.java",
+      "bytes": 280,
+      "sha256": "e021ad828732cbdaef6dacba8b0e5d78a156bec823017726045e81a004c97412",
+      "base_sha256": "e021ad828732cbdaef6dacba8b0e5d78a156bec823017726045e81a004c97412",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/dto/SavedAssistantMessage.java",
+      "bytes": 283,
+      "sha256": "47ac04514cc59a81b5af33042eaddf9d5ef06b2c7779e944b2a4386f6d0dbad0",
+      "base_sha256": "47ac04514cc59a81b5af33042eaddf9d5ef06b2c7779e944b2a4386f6d0dbad0",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/guard/BusinessDataTurnGuard.java",
+      "bytes": 16131,
+      "sha256": "fda6c4b031ac184a2587bdee8e0f500939ae965a2498e3dd7ed9908b5bee101b",
+      "base_sha256": "fda6c4b031ac184a2587bdee8e0f500939ae965a2498e3dd7ed9908b5bee101b",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/lifecycle/AssistantLifecycleService.java",
+      "bytes": 22520,
+      "sha256": "451cd9e4555ca4ff7a9c84c05c96c669f43da88ee4e7e4558e1746677faa718a",
+      "base_sha256": "451cd9e4555ca4ff7a9c84c05c96c669f43da88ee4e7e4558e1746677faa718a",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/output/AssistantAnswerSanitizer.java",
+      "bytes": 16103,
+      "sha256": "ceb412c67eeae8dc14223f1bfb080ccd5f73d07b9de9af686f6d9fe0d60d0de5",
+      "base_sha256": "ceb412c67eeae8dc14223f1bfb080ccd5f73d07b9de9af686f6d9fe0d60d0de5",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/rag/EmbeddingModelMetadata.java",
+      "bytes": 778,
+      "sha256": "dd122de93450e53c700b557f12a8cfdf2d151054a7f82d996a8ebd0cf4e3eccf",
+      "base_sha256": "dd122de93450e53c700b557f12a8cfdf2d151054a7f82d996a8ebd0cf4e3eccf",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/rag/RagAdvisorFactory.java",
+      "bytes": 9029,
+      "sha256": "f7a0695043862a5081d5352310521806590ce78df8451369ce81b3a98a179ce6",
+      "base_sha256": "f7a0695043862a5081d5352310521806590ce78df8451369ce81b3a98a179ce6",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/rag/RagAnswerResult.java",
+      "bytes": 516,
+      "sha256": "add8c8437095f52205fa66d8b4d91b43e3dc8a913d125be873170c4e27894d68",
+      "base_sha256": "add8c8437095f52205fa66d8b4d91b43e3dc8a913d125be873170c4e27894d68",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/rag/RagAnswerService.java",
+      "bytes": 3163,
+      "sha256": "42850b6366dc128ef0df1f3d4e0f20515e986a6343c5336dc77f2cb90be90840",
+      "base_sha256": "42850b6366dc128ef0df1f3d4e0f20515e986a6343c5336dc77f2cb90be90840",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/rag/RagCitationCodec.java",
+      "bytes": 2712,
+      "sha256": "da0d560068bb6a3cea35368d7fb60d38009fd4fde2aa1580616708ec8b017d04",
+      "base_sha256": "da0d560068bb6a3cea35368d7fb60d38009fd4fde2aa1580616708ec8b017d04",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/rag/RagCitationNumberExtractor.java",
+      "bytes": 6650,
+      "sha256": "93571c8ce1b791e04a00ed8b3034a8f1b0898155f0ae08b374b6c9d836f07917",
+      "base_sha256": "93571c8ce1b791e04a00ed8b3034a8f1b0898155f0ae08b374b6c9d836f07917",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/rag/RagCitationValidator.java",
+      "bytes": 5989,
+      "sha256": "bb510d94e4cf2dce41c67f62fe292b8f7e6a1920dcc0256f51b29863322cb870",
+      "base_sha256": "bb510d94e4cf2dce41c67f62fe292b8f7e6a1920dcc0256f51b29863322cb870",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/rag/RagContextFormatter.java",
+      "bytes": 3546,
+      "sha256": "3114c4c8aa66140c414da6f703303837fad4c9724cc49bb854dd98da35b8651e",
+      "base_sha256": "3114c4c8aa66140c414da6f703303837fad4c9724cc49bb854dd98da35b8651e",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/rag/RagDocumentEligibilityFilter.java",
+      "bytes": 6351,
+      "sha256": "7fbc5a474da02987717da770fd76686d7808c46db6662ca7c67925495ad50a7d",
+      "base_sha256": "7fbc5a474da02987717da770fd76686d7808c46db6662ca7c67925495ad50a7d",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/rag/RagEvidenceExtractor.java",
+      "bytes": 1609,
+      "sha256": "4262514bf7ce12ee0b72bd3f65b9af4febdff64655a72ae541143f3d1786f23f",
+      "base_sha256": "4262514bf7ce12ee0b72bd3f65b9af4febdff64655a72ae541143f3d1786f23f",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/rag/RagRequestContext.java",
+      "bytes": 517,
+      "sha256": "cc2791bc4c05b782a964210b3f917b724e7eaed62f561746d1e27860d5a90607",
+      "base_sha256": "cc2791bc4c05b782a964210b3f917b724e7eaed62f561746d1e27860d5a90607",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/chat/rag/RagRetrievalDefaults.java",
+      "bytes": 704,
+      "sha256": "cdfccc234d06bc919f4cc80dcdb67af4b1ac8bbaef707f141e1a6788a73ada5a",
+      "base_sha256": "cdfccc234d06bc919f4cc80dcdb67af4b1ac8bbaef707f141e1a6788a73ada5a",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/config/ChatModelConfig.java",
+      "bytes": 833,
+      "sha256": "150cb315153f17547abb6d882218b345101fd121443ed8e5a7eed3fca4186ab6",
+      "base_sha256": "150cb315153f17547abb6d882218b345101fd121443ed8e5a7eed3fca4186ab6",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/config/ContextPropagationConfig.java",
+      "bytes": 876,
+      "sha256": "654104d9a21591cbc36081728eda69a3f739cab935bcb9adeca61fe201c915d4",
+      "base_sha256": "654104d9a21591cbc36081728eda69a3f739cab935bcb9adeca61fe201c915d4",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/config/DataSourceConfig.java",
+      "bytes": 2455,
+      "sha256": "2758eb15771ffee96caff8edeaaee383b81698eba62e0343506cee378c95cf96",
+      "base_sha256": "2758eb15771ffee96caff8edeaaee383b81698eba62e0343506cee378c95cf96",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/config/ErpMybatisPlusConfig.java",
+      "bytes": 4245,
+      "sha256": "676cb961e14fa306b16c32d168fdd4273d390cbcce5284bd9a8a0d95aeee6659",
+      "base_sha256": "676cb961e14fa306b16c32d168fdd4273d390cbcce5284bd9a8a0d95aeee6659",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/config/GatewayModelConfig.java",
+      "bytes": 2666,
+      "sha256": "1903518601a98399e22daabed53942cfdd08a6d915c4371b1b206021e4f8b868",
+      "base_sha256": "1903518601a98399e22daabed53942cfdd08a6d915c4371b1b206021e4f8b868",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/config/GlobalExceptionHandler.java",
+      "bytes": 4508,
+      "sha256": "d40e511c0664a5866d4f9ee753f3ab39406a35a707236039c6bfcdae71b652ca",
+      "base_sha256": "d40e511c0664a5866d4f9ee753f3ab39406a35a707236039c6bfcdae71b652ca",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/config/ModelProperties.java",
+      "bytes": 2711,
+      "sha256": "bc16f00e4f17bd5be699ea55b3b6ca42c0eba6e0b0a567c11770209765565b87",
+      "base_sha256": "bc16f00e4f17bd5be699ea55b3b6ca42c0eba6e0b0a567c11770209765565b87",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/config/RagTaskExecutorConfig.java",
+      "bytes": 1255,
+      "sha256": "b35e40b668e7cdc16ef3bbdef4e4dea04d553176e56262aaf581fff225300013",
+      "base_sha256": "b35e40b668e7cdc16ef3bbdef4e4dea04d553176e56262aaf581fff225300013",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/config/TenantContext.java",
+      "bytes": 1549,
+      "sha256": "5ef44440aae5f1a7353f963bd37b7a8ff3f895c5620eaeadecb2542f05b59dae",
+      "base_sha256": "5ef44440aae5f1a7353f963bd37b7a8ff3f895c5620eaeadecb2542f05b59dae",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/config/TenantContextAccessor.java",
+      "bytes": 1355,
+      "sha256": "c8eb2a052dbd14972c53169ee090cbea8b153e934f46df957a3fef700bb2d88a",
+      "base_sha256": "c8eb2a052dbd14972c53169ee090cbea8b153e934f46df957a3fef700bb2d88a",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/config/TenantFilter.java",
+      "bytes": 2565,
+      "sha256": "8b6c57a555922e5db8f8bf08059b459e34f9e80a3dea2d547297aca827f71bfd",
+      "base_sha256": "8b6c57a555922e5db8f8bf08059b459e34f9e80a3dea2d547297aca827f71bfd",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/config/TenantProperties.java",
+      "bytes": 1622,
+      "sha256": "42ec066ace3e141e63b320483c2f7f3a4bf5224cf832f78d991a730db9913179",
+      "base_sha256": "42ec066ace3e141e63b320483c2f7f3a4bf5224cf832f78d991a730db9913179",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/controller/BillingController.java",
+      "bytes": 3097,
+      "sha256": "bcd1671d29c4611276147cb36916aaff35cd8f8e1ab64a1c6321391d9cdcf7bd",
+      "base_sha256": "bcd1671d29c4611276147cb36916aaff35cd8f8e1ab64a1c6321391d9cdcf7bd",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/controller/BillingManagementController.java",
+      "bytes": 3301,
+      "sha256": "6dc9a792f7c52392797264336d711a6277197ed1d512ff1a434e5722eeca62cc",
+      "base_sha256": "6dc9a792f7c52392797264336d711a6277197ed1d512ff1a434e5722eeca62cc",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/controller/ChatController.java",
+      "bytes": 8213,
+      "sha256": "a08ca394890d4a53cbeff43a270831350a4dc0a825b0044b8e8b96dc30fe2d6b",
+      "base_sha256": "a08ca394890d4a53cbeff43a270831350a4dc0a825b0044b8e8b96dc30fe2d6b",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/controller/ConversationController.java",
+      "bytes": 2390,
+      "sha256": "5e9c468708a81076429dfd39ae9ed515fc5610a74d83630cbec00a0cd731efce",
+      "base_sha256": "5e9c468708a81076429dfd39ae9ed515fc5610a74d83630cbec00a0cd731efce",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/controller/KnowledgeBaseController.java",
+      "bytes": 5664,
+      "sha256": "dfc63913249bbed49e4e39e2d29198c9fe0a030651b5ca0e1a400a36003f2db2",
+      "base_sha256": "dfc63913249bbed49e4e39e2d29198c9fe0a030651b5ca0e1a400a36003f2db2",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/controller/TenantManagementController.java",
+      "bytes": 2421,
+      "sha256": "886b2982b216302e6707b8b9c2cf4dcf4bf1db73dab9c760bbcae8992d7b1884",
+      "base_sha256": "886b2982b216302e6707b8b9c2cf4dcf4bf1db73dab9c760bbcae8992d7b1884",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/controller/ToolManagementController.java",
+      "bytes": 2982,
+      "sha256": "0bfbb242631d88b716f058b813cb17a1634e0bf8478df20d8324d6e0a27f7651",
+      "base_sha256": "0bfbb242631d88b716f058b813cb17a1634e0bf8478df20d8324d6e0a27f7651",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/conversation/ChatHistoryService.java",
+      "bytes": 21720,
+      "sha256": "c52fa898456cc7f3670ebb885313d331013a2600afd6cf92f57150fe375d02a6",
+      "base_sha256": "c52fa898456cc7f3670ebb885313d331013a2600afd6cf92f57150fe375d02a6",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/conversation/JdbcChatMemoryRepository.java",
+      "bytes": 2822,
+      "sha256": "f017a104b7329a90463a05466a198fd57ffac023393bace322b48acce99228d2",
+      "base_sha256": "f017a104b7329a90463a05466a198fd57ffac023393bace322b48acce99228d2",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/entity/BillingAccountEntity.java",
+      "bytes": 1123,
+      "sha256": "f1a5579801629bbedbfc6b9c9230c471ffb6235562b1e916fcfacd2a0aed2a68",
+      "base_sha256": "f1a5579801629bbedbfc6b9c9230c471ffb6235562b1e916fcfacd2a0aed2a68",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/entity/BillingInvoiceEntity.java",
+      "bytes": 1225,
+      "sha256": "b532622f2949550145b5e01cd7ac6f689b225ffb62bf7a6d9299ac76a7721bb7",
+      "base_sha256": "b532622f2949550145b5e01cd7ac6f689b225ffb62bf7a6d9299ac76a7721bb7",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/entity/BillingPlanEntity.java",
+      "bytes": 1277,
+      "sha256": "04007fe9361af785403224e272b814ecc014b7ef5fd151ee833903b39926ce23",
+      "base_sha256": "04007fe9361af785403224e272b814ecc014b7ef5fd151ee833903b39926ce23",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/entity/BillingPriceRuleEntity.java",
+      "bytes": 934,
+      "sha256": "136dccd0d6384fc5f8f9fc9c2903625b267ff1a3c4875519433be8b14fe3ef0c",
+      "base_sha256": "136dccd0d6384fc5f8f9fc9c2903625b267ff1a3c4875519433be8b14fe3ef0c",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/entity/BillingTransactionEntity.java",
+      "bytes": 1161,
+      "sha256": "aca03165fdf9dac5ad67e9d9b884b48af21aabc97690c1dfb3eddde9ab662264",
+      "base_sha256": "aca03165fdf9dac5ad67e9d9b884b48af21aabc97690c1dfb3eddde9ab662264",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/entity/ChatConversationEntity.java",
+      "bytes": 1013,
+      "sha256": "81da5fed0e99777ab8ab4d675ffd4e36c88da3e1a6447ce7972fd37ee8271b90",
+      "base_sha256": "81da5fed0e99777ab8ab4d675ffd4e36c88da3e1a6447ce7972fd37ee8271b90",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/entity/ChatMessageEntity.java",
+      "bytes": 1688,
+      "sha256": "7ac79726f6d66c74403d036b1e50b91f08ddfa89c0d13356e1e8d021c718efa8",
+      "base_sha256": "7ac79726f6d66c74403d036b1e50b91f08ddfa89c0d13356e1e8d021c718efa8",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/entity/KnowledgeBaseEntity.java",
+      "bytes": 958,
+      "sha256": "de5d8c0c65b91fc72377f0ef9646ea6bd1dca95d0080381d61452dcf3a5d979b",
+      "base_sha256": "de5d8c0c65b91fc72377f0ef9646ea6bd1dca95d0080381d61452dcf3a5d979b",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/entity/KnowledgeDocumentEntity.java",
+      "bytes": 1379,
+      "sha256": "4a84ba649d550508c354f5fa4b895f6dad5c4461f4fc6116db29186e9c3863a7",
+      "base_sha256": "4a84ba649d550508c354f5fa4b895f6dad5c4461f4fc6116db29186e9c3863a7",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/entity/LlmToolEntity.java",
+      "bytes": 1092,
+      "sha256": "49506c04873e69fc046d32026390b0841977a04ed7ab8cdf68ff4d283b37dfaa",
+      "base_sha256": "49506c04873e69fc046d32026390b0841977a04ed7ab8cdf68ff4d283b37dfaa",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/entity/TenantEntity.java",
+      "bytes": 792,
+      "sha256": "1afe0aa7f72b708eaf4ff79470a340b6240e29f2f6fd7e4453cdd6bff07c7fa9",
+      "base_sha256": "1afe0aa7f72b708eaf4ff79470a340b6240e29f2f6fd7e4453cdd6bff07c7fa9",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/entity/TenantUserEntity.java",
+      "bytes": 881,
+      "sha256": "e4af3783176dc9011317f1464fb0e8007f32291fd97efa535501328ccb2c225e",
+      "base_sha256": "e4af3783176dc9011317f1464fb0e8007f32291fd97efa535501328ccb2c225e",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/entity/TokenUsageDailyEntity.java",
+      "bytes": 1201,
+      "sha256": "b6e4854088a8a7c64a4480cfa8799c1fcf79b079536483123fffacc784fdc6c7",
+      "base_sha256": "b6e4854088a8a7c64a4480cfa8799c1fcf79b079536483123fffacc784fdc6c7",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/entity/TokenUsageMonthlyEntity.java",
+      "bytes": 1125,
+      "sha256": "f293348fd324d527b645aa3964a3b538d1b69751a3559d57bf6a8fd27e8487c3",
+      "base_sha256": "f293348fd324d527b645aa3964a3b538d1b69751a3559d57bf6a8fd27e8487c3",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/entity/ToolCallLogEntity.java",
+      "bytes": 1294,
+      "sha256": "1a09e31a7b52a88b4ce84707d9f77a55704ffc392532e58fa3deb5b3ceb4ae55",
+      "base_sha256": "1a09e31a7b52a88b4ce84707d9f77a55704ffc392532e58fa3deb5b3ceb4ae55",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/mapper/BillingAccountMapper.java",
+      "bytes": 2275,
+      "sha256": "c67f47e27b5a8437725e62db1eb5530a70de24bb5f62105c02846257638c0c19",
+      "base_sha256": "c67f47e27b5a8437725e62db1eb5530a70de24bb5f62105c02846257638c0c19",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/mapper/BillingInvoiceMapper.java",
+      "bytes": 277,
+      "sha256": "1cf7a3b66242476e8947385b2302d47f06e216ab3cefc5b87835c9697c3e8836",
+      "base_sha256": "1cf7a3b66242476e8947385b2302d47f06e216ab3cefc5b87835c9697c3e8836",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/mapper/BillingPlanMapper.java",
+      "bytes": 918,
+      "sha256": "f28317130d1068f7424b8953445fd0343d7142dc72f3302e5eab98542d6559ca",
+      "base_sha256": "f28317130d1068f7424b8953445fd0343d7142dc72f3302e5eab98542d6559ca",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/mapper/BillingPriceRuleMapper.java",
+      "bytes": 828,
+      "sha256": "a550ce9407135767a925391965dbc0e4330b5f286ef7537f0420bc6ef9696c2b",
+      "base_sha256": "a550ce9407135767a925391965dbc0e4330b5f286ef7537f0420bc6ef9696c2b",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/mapper/BillingTransactionMapper.java",
+      "bytes": 1047,
+      "sha256": "af2514f95f0775e7abf1091baa9be90ca105ed493b76612c0be80f3ca7df9483",
+      "base_sha256": "af2514f95f0775e7abf1091baa9be90ca105ed493b76612c0be80f3ca7df9483",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/mapper/ChatConversationMapper.java",
+      "bytes": 2793,
+      "sha256": "926f6a965faebbfc331f672acbc41e72dd6fccfd82fa225c98f6d6a5949802bb",
+      "base_sha256": "926f6a965faebbfc331f672acbc41e72dd6fccfd82fa225c98f6d6a5949802bb",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/mapper/ChatMessageMapper.java",
+      "bytes": 1846,
+      "sha256": "3b3c1399766b0db56931a2880716093d4ade7b75c260b51fd6a637f01e6b2b47",
+      "base_sha256": "3b3c1399766b0db56931a2880716093d4ade7b75c260b51fd6a637f01e6b2b47",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/mapper/KnowledgeBaseMapper.java",
+      "bytes": 852,
+      "sha256": "07dc73d06d738c6fd6f6267cdbe1e6ede6d188ddf212748d07554d40a9963f37",
+      "base_sha256": "07dc73d06d738c6fd6f6267cdbe1e6ede6d188ddf212748d07554d40a9963f37",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/mapper/KnowledgeDocumentMapper.java",
+      "bytes": 1541,
+      "sha256": "7c35360b9ebda489d6969dc4165b686af991d8e62c7dee86cd4ee7cf631c0d0a",
+      "base_sha256": "7c35360b9ebda489d6969dc4165b686af991d8e62c7dee86cd4ee7cf631c0d0a",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/mapper/LlmToolMapper.java",
+      "bytes": 793,
+      "sha256": "b7d8ac9f46974ea137c573911417fe3f7437b227a1ce0ca856c1ca9b7f598051",
+      "base_sha256": "b7d8ac9f46974ea137c573911417fe3f7437b227a1ce0ca856c1ca9b7f598051",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/mapper/TenantMapper.java",
+      "bytes": 617,
+      "sha256": "0a9ba2fb31d7995dfc022051e730858a5ddd38e7c2bf5beca4d3f2dc458f3e17",
+      "base_sha256": "0a9ba2fb31d7995dfc022051e730858a5ddd38e7c2bf5beca4d3f2dc458f3e17",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/mapper/TenantUserMapper.java",
+      "bytes": 257,
+      "sha256": "0b0e8c4359205f316782916edccfcad614f2c94783f08053c0d99047006c20e3",
+      "base_sha256": "0b0e8c4359205f316782916edccfcad614f2c94783f08053c0d99047006c20e3",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/mapper/TokenUsageDailyMapper.java",
+      "bytes": 2603,
+      "sha256": "5e6753c01318a3b77b2c0198a784ef318375474c57381a117e43004e4e49d1a4",
+      "base_sha256": "5e6753c01318a3b77b2c0198a784ef318375474c57381a117e43004e4e49d1a4",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/mapper/TokenUsageMonthlyMapper.java",
+      "bytes": 898,
+      "sha256": "7a0bffafca2043101a30cf8976a22fff69ec52733690e814dcf0faaada62f77d",
+      "base_sha256": "7a0bffafca2043101a30cf8976a22fff69ec52733690e814dcf0faaada62f77d",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/dao/mapper/ToolCallLogMapper.java",
+      "bytes": 832,
+      "sha256": "d9cacfa10a1f67a12068650a3d763bafa8ac16c76bb93d453b6fbd6b2d65709e",
+      "base_sha256": "d9cacfa10a1f67a12068650a3d763bafa8ac16c76bb93d453b6fbd6b2d65709e",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/init/ErpDatabaseInitializer.java",
+      "bytes": 17025,
+      "sha256": "91b7adb1b2289ab6079767ad376086b888565d84c851008eb6d3731e40438a87",
+      "base_sha256": "91b7adb1b2289ab6079767ad376086b888565d84c851008eb6d3731e40438a87",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/knowledge/KnowledgeBaseService.java",
+      "bytes": 17777,
+      "sha256": "8e7fe026e23763fb62521e52a9295d9cf2fc47b8d2dd8c1771d000bb3658b5ea",
+      "base_sha256": "8e7fe026e23763fb62521e52a9295d9cf2fc47b8d2dd8c1771d000bb3658b5ea",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/knowledge/KnowledgeDocumentIngestionService.java",
+      "bytes": 11397,
+      "sha256": "41235dc9a653ae96926ffe2ec337307daed96fd6e956f5bb9b2b849a4c99de8e",
+      "base_sha256": "41235dc9a653ae96926ffe2ec337307daed96fd6e956f5bb9b2b849a4c99de8e",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/knowledge/KnowledgeDocumentService.java",
+      "bytes": 17778,
+      "sha256": "db7324465ca2dead8b5b6d0fe2cbf31fba01dab381481f7ccb2ca295927bda97",
+      "base_sha256": "db7324465ca2dead8b5b6d0fe2cbf31fba01dab381481f7ccb2ca295927bda97",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/knowledge/KnowledgeInfrastructureException.java",
+      "bytes": 468,
+      "sha256": "c19d513da1305cc76a3acbff64e839d064f4cf41f9d4e20c1838e7242cff90e8",
+      "base_sha256": "c19d513da1305cc76a3acbff64e839d064f4cf41f9d4e20c1838e7242cff90e8",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/knowledge/dto/DocumentImportRegistration.java",
+      "bytes": 360,
+      "sha256": "62d8207bbafffe6d9c421873cdf72c04a8fdaf68574c81f177d2979880f2f1cf",
+      "base_sha256": "62d8207bbafffe6d9c421873cdf72c04a8fdaf68574c81f177d2979880f2f1cf",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/knowledge/dto/DocumentPromotionResult.java",
+      "bytes": 384,
+      "sha256": "5e2b3cb54bd52e279e054e9982469f8b71a8b5a7558de3aa9188b6549ce21502",
+      "base_sha256": "5e2b3cb54bd52e279e054e9982469f8b71a8b5a7558de3aa9188b6549ce21502",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/knowledge/dto/DocumentVersionKey.java",
+      "bytes": 210,
+      "sha256": "2908c749833414095c22d0e2936bf37bbe80112aa601c393df3599ff75e3775f",
+      "base_sha256": "2908c749833414095c22d0e2936bf37bbe80112aa601c393df3599ff75e3775f",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/knowledge/dto/KnowledgeDocumentCount.java",
+      "bytes": 275,
+      "sha256": "832f177e37b2bd19e225114835ade630ee132ab30e78c7c92bfd7a03e470a788",
+      "base_sha256": "832f177e37b2bd19e225114835ade630ee132ab30e78c7c92bfd7a03e470a788",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/knowledge/dto/ManagedDocumentLoadResult.java",
+      "bytes": 258,
+      "sha256": "0ce7308ffcadb08092c7d2c0e063abe74de4dc2331d46189fae5b549b4deb90b",
+      "base_sha256": "0ce7308ffcadb08092c7d2c0e063abe74de4dc2331d46189fae5b549b4deb90b",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/knowledge/dto/ManagedDocumentMetadata.java",
+      "bytes": 441,
+      "sha256": "cae43547ebf6db3286c8ea40d7b494b6cbfbaa8b59f27cc37b04387717be676b",
+      "base_sha256": "cae43547ebf6db3286c8ea40d7b494b6cbfbaa8b59f27cc37b04387717be676b",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tenant/TenantManagementService.java",
+      "bytes": 3771,
+      "sha256": "5fcbdf902c78f77a3a69ed11b3bbad8176f28a4bb9766d587551c4eeef7255dc",
+      "base_sha256": "5fcbdf902c78f77a3a69ed11b3bbad8176f28a4bb9766d587551c4eeef7255dc",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/AfterSalesTool.java",
+      "bytes": 4047,
+      "sha256": "e37e5c205d562ed8f8a0f7b405ded84f8e8709dced8640a3f8ad16e47c728246",
+      "base_sha256": "e37e5c205d562ed8f8a0f7b405ded84f8e8709dced8640a3f8ad16e47c728246",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/BaseTool.java",
+      "bytes": 3552,
+      "sha256": "66a0c335b4657b3f5f8f077ab6d160c1642e57689e59343fc1f28d7b4d9ab798",
+      "base_sha256": "66a0c335b4657b3f5f8f077ab6d160c1642e57689e59343fc1f28d7b4d9ab798",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/FinanceTool.java",
+      "bytes": 5023,
+      "sha256": "27b39f7f7b71557fe8a7bb0f2c670250a94c26d170fad5b22f3a9000fc49d0b6",
+      "base_sha256": "27b39f7f7b71557fe8a7bb0f2c670250a94c26d170fad5b22f3a9000fc49d0b6",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/OutsourcingTool.java",
+      "bytes": 3700,
+      "sha256": "6fec2fd164553bcaf6a9c1d4a7a4ec0cc9de98b3d9854d7c44a63b9df2f79dbd",
+      "base_sha256": "6fec2fd164553bcaf6a9c1d4a7a4ec0cc9de98b3d9854d7c44a63b9df2f79dbd",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/ProductionTool.java",
+      "bytes": 4531,
+      "sha256": "ee5ef955759d9c5a0cc371b22b8079eae38285c1d0368c56cfe18532596aa869",
+      "base_sha256": "ee5ef955759d9c5a0cc371b22b8079eae38285c1d0368c56cfe18532596aa869",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/PurchaseTool.java",
+      "bytes": 4350,
+      "sha256": "dfc44e19f7f13657eb727730d6bcf2b91f4dfd23ba4d507c534cd44a10e3ae9c",
+      "base_sha256": "dfc44e19f7f13657eb727730d6bcf2b91f4dfd23ba4d507c534cd44a10e3ae9c",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/QualityTool.java",
+      "bytes": 4755,
+      "sha256": "c8e1f9cc35b29ada3514c2a9ee8f315b723da005ed1d3fef5889cf6cf7389b41",
+      "base_sha256": "c8e1f9cc35b29ada3514c2a9ee8f315b723da005ed1d3fef5889cf6cf7389b41",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/SalesTool.java",
+      "bytes": 5407,
+      "sha256": "ac483dae0ce6e1252edbf0b462ef68a2df7b0a33570c9c181014c3c5baf69cfc",
+      "base_sha256": "ac483dae0ce6e1252edbf0b462ef68a2df7b0a33570c9c181014c3c5baf69cfc",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/ToolNames.java",
+      "bytes": 363,
+      "sha256": "e36ec36618969d7479801504fd1f5d1eccfc9212cd7aa4103bcdeac7783aa4f4",
+      "base_sha256": "e36ec36618969d7479801504fd1f5d1eccfc9212cd7aa4103bcdeac7783aa4f4",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/WarehouseTool.java",
+      "bytes": 4578,
+      "sha256": "1654b5b58b448d9000a6b28829d955b402c8d9f0f61ce7fbcbab60f6f91883d4",
+      "base_sha256": "1654b5b58b448d9000a6b28829d955b402c8d9f0f61ce7fbcbab60f6f91883d4",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/admin/ToolManagementService.java",
+      "bytes": 8768,
+      "sha256": "0279574310b5c941dd8ec0753aa07e4255dc34f58e3d8e8a7b3c5e12d361bcaa",
+      "base_sha256": "0279574310b5c941dd8ec0753aa07e4255dc34f58e3d8e8a7b3c5e12d361bcaa",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/dynamic/BoundSql.java",
+      "bytes": 475,
+      "sha256": "ee2030f17d69bcaa47aa043ec87872153330c6d153ccefa4fbfb92e8a1c277b0",
+      "base_sha256": "ee2030f17d69bcaa47aa043ec87872153330c6d153ccefa4fbfb92e8a1c277b0",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/dynamic/DatabaseToolCallback.java",
+      "bytes": 2228,
+      "sha256": "9f244228fe2d55254377a2ebd83320569693d008f1eaeace65552e4402efc722",
+      "base_sha256": "9f244228fe2d55254377a2ebd83320569693d008f1eaeace65552e4402efc722",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/dynamic/DatabaseToolCallbackFactory.java",
+      "bytes": 905,
+      "sha256": "75aec03cd5d6c38a40718e7f60853085f30e9236fac874f5801347406bd7aef3",
+      "base_sha256": "75aec03cd5d6c38a40718e7f60853085f30e9236fac874f5801347406bd7aef3",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/dynamic/DatabaseToolExecutor.java",
+      "bytes": 2946,
+      "sha256": "8dda79cad1bc73e3595b12639a86615eb438a298fc2ce05e846634e6d3f39e50",
+      "base_sha256": "8dda79cad1bc73e3595b12639a86615eb438a298fc2ce05e846634e6d3f39e50",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/dynamic/DatabaseToolResult.java",
+      "bytes": 420,
+      "sha256": "2281e40e528035a7847502a4f122b9f873dd925040b407c66d79cd79af7bbb0b",
+      "base_sha256": "2281e40e528035a7847502a4f122b9f873dd925040b407c66d79cd79af7bbb0b",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/dynamic/SqlTemplateBinder.java",
+      "bytes": 3010,
+      "sha256": "e34d48e8e7462b117169dcc356b9937b30d5eba8bafb692d3ff7fa82b7faee36",
+      "base_sha256": "e34d48e8e7462b117169dcc356b9937b30d5eba8bafb692d3ff7fa82b7faee36",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/dynamic/SqlToolValidator.java",
+      "bytes": 5009,
+      "sha256": "3547531ec1693f55fc623cdbde5205e1cc7ecdc2cc979338042f7e4cf5e719b4",
+      "base_sha256": "3547531ec1693f55fc623cdbde5205e1cc7ecdc2cc979338042f7e4cf5e719b4",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/dynamic/TenantSqlInjection.java",
+      "bytes": 304,
+      "sha256": "2029dfa27a032227d6bf473a5b22196808162f37ebad01128a37d918d99de91f",
+      "base_sha256": "2029dfa27a032227d6bf473a5b22196808162f37ebad01128a37d918d99de91f",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/dynamic/TenantSqlInjector.java",
+      "bytes": 3683,
+      "sha256": "bcb971f52b1619c05a884f0d8cafdf6b91472ec12e08f90bebf49f6a4f2a38e4",
+      "base_sha256": "bcb971f52b1619c05a884f0d8cafdf6b91472ec12e08f90bebf49f6a4f2a38e4",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/registry/ToolRegistryService.java",
+      "bytes": 6928,
+      "sha256": "a6489e9cd247411cec12ba1a80091b892dde9192fbbd310b3ba7dc20a8f722a0",
+      "base_sha256": "a6489e9cd247411cec12ba1a80091b892dde9192fbbd310b3ba7dc20a8f722a0",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/registry/ToolSnapshot.java",
+      "bytes": 691,
+      "sha256": "60b0e12048654574c7338cfc62711c2664b5d9672d7a114afbf31285007a335e",
+      "base_sha256": "60b0e12048654574c7338cfc62711c2664b5d9672d7a114afbf31285007a335e",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/trace/LoggingToolCallback.java",
+      "bytes": 8837,
+      "sha256": "1297879bb2d2872d7eb25e37e7d233f04098ff39993062753998f3d8bf6a0ee0",
+      "base_sha256": "1297879bb2d2872d7eb25e37e7d233f04098ff39993062753998f3d8bf6a0ee0",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/trace/ToolCallLogService.java",
+      "bytes": 1270,
+      "sha256": "3abb005eb9ef32351623b1071fe59abfe0db3e27c4381b1eeb2e729430adce00",
+      "base_sha256": "3abb005eb9ef32351623b1071fe59abfe0db3e27c4381b1eeb2e729430adce00",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/trace/ToolCallRecord.java",
+      "bytes": 520,
+      "sha256": "0b4319acb9dfac2e3cd9908474b32f6ebae85067b843feebeea8403d298da3fb",
+      "base_sha256": "0b4319acb9dfac2e3cd9908474b32f6ebae85067b843feebeea8403d298da3fb",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/tool/trace/ToolCallRecorder.java",
+      "bytes": 2582,
+      "sha256": "52187e9931c41bf56b40ecdfd19effe8bc098bc7bf0c75e48dc5533b9d33f8fb",
+      "base_sha256": "52187e9931c41bf56b40ecdfd19effe8bc098bc7bf0c75e48dc5533b9d33f8fb",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/vo/AdminVO.java",
+      "bytes": 5118,
+      "sha256": "4c7903183fb0840930566a7202d7bea87a4ab4991c39d7dbf74404fcd754ce8a",
+      "base_sha256": "4c7903183fb0840930566a7202d7bea87a4ab4991c39d7dbf74404fcd754ce8a",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/vo/BillingVO.java",
+      "bytes": 7234,
+      "sha256": "15b83174656427f25c00e40a01188930a0ebb5c67d614398b1a5f9f1ce8a461f",
+      "base_sha256": "15b83174656427f25c00e40a01188930a0ebb5c67d614398b1a5f9f1ce8a461f",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/vo/ChartVO.java",
+      "bytes": 4754,
+      "sha256": "71b762a77452fb953acb3c2813929103ab7392034e9b034f0f1ca44360149f80",
+      "base_sha256": "71b762a77452fb953acb3c2813929103ab7392034e9b034f0f1ca44360149f80",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/vo/ChatVO.java",
+      "bytes": 6692,
+      "sha256": "00a0829bce775816dd853b6dc54d51ee91f47d4aeaba54cd64d72a6354e37023",
+      "base_sha256": "00a0829bce775816dd853b6dc54d51ee91f47d4aeaba54cd64d72a6354e37023",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/vo/ConversationVO.java",
+      "bytes": 5019,
+      "sha256": "bef4852c5dae88e6780191ed45e9b19fcf729e6bfb0f64553b9486aba3ccdf8a",
+      "base_sha256": "bef4852c5dae88e6780191ed45e9b19fcf729e6bfb0f64553b9486aba3ccdf8a",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/vo/KnowledgeVO.java",
+      "bytes": 3571,
+      "sha256": "361de6bc1a382b6dc95a7c557f2df403e9d2afd465134307970ec6cee77f9565",
+      "base_sha256": "361de6bc1a382b6dc95a7c557f2df403e9d2afd465134307970ec6cee77f9565",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/java/com/example/rag/vo/RespVO.java",
+      "bytes": 3445,
+      "sha256": "e5480713490f0e00d98cf20a23ae88d3f3eeb2d3c10b628a43cf90c6e9db39c6",
+      "base_sha256": "e5480713490f0e00d98cf20a23ae88d3f3eeb2d3c10b628a43cf90c6e9db39c6",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/application-gateway.yml",
+      "bytes": 1161,
+      "sha256": "b525b562bef18aea8b9ae8ce6dd5082fb524e9170f7aac97ae998674a7a534d7",
+      "base_sha256": "b525b562bef18aea8b9ae8ce6dd5082fb524e9170f7aac97ae998674a7a534d7",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/application.yml",
+      "bytes": 4668,
+      "sha256": "cb4581eac20b771ae27f3060c1cf38301d4d59cb6b83750b048b2c0f556fff67",
+      "base_sha256": "cb4581eac20b771ae27f3060c1cf38301d4d59cb6b83750b048b2c0f556fff67",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/db/init/business-data.sql",
+      "bytes": 23074,
+      "sha256": "3fe7ccbaf76304aa21d105249f3d8f93eae19afc9c26c53bac3d19928bca6913",
+      "base_sha256": "d89c411759362b1a7f754fa0e3b8545a742f26000102521c586c927ce38c9e38",
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/db/init/conversation-billing-schema.sql",
+      "bytes": 20746,
+      "sha256": "8a9692d48edae1c231ce59158c18f12e648f0ac93edba100423718050bcc0524",
+      "base_sha256": "c8577d8c74fa6f43dc97ca049124f27680c001426b50bbd69a32e2059410dab3",
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/docs/spring-ai-intro.txt",
+      "bytes": 2050,
+      "sha256": "45ff9c99d6fca083fb5dd900800aa7e3f0341c9af12280805baf84239eed76b6",
+      "base_sha256": "45ff9c99d6fca083fb5dd900800aa7e3f0341c9af12280805baf84239eed76b6",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/models/embedding/MODEL.md",
+      "bytes": 1064,
+      "sha256": "7350ff25c00f7784976f8e1d38e09d9553ae776b09a5552a96090fec929541be",
+      "base_sha256": "7350ff25c00f7784976f8e1d38e09d9553ae776b09a5552a96090fec929541be",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/models/embedding/model.onnx",
+      "bytes": 118453870,
+      "sha256": "98a01d88b7de996cdea58c32ca71208c09968d143798814b2ea09d3439dc334f",
+      "base_sha256": null,
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": true
+    },
+    {
+      "path": "src/main/resources/models/embedding/tokenizer.json",
+      "bytes": 9081518,
+      "sha256": "2c3387be76557bd40970cec13153b3bbf80407865484b209e655e5e4729076b8",
+      "base_sha256": null,
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": true
+    },
+    {
+      "path": "src/main/resources/static/app.js",
+      "bytes": 76719,
+      "sha256": "ec229f748157579bff8fc1fff4aa7932ce5db7809bb3b26423d121839ccf5a8c",
+      "base_sha256": "ec229f748157579bff8fc1fff4aa7932ce5db7809bb3b26423d121839ccf5a8c",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/static/chart-adapter.js",
+      "bytes": 30422,
+      "sha256": "903ddabc6122c9b58a35fd4ec093ba3d07d65c1cf8dd0b1b1a34bd5fdf707fb3",
+      "base_sha256": "903ddabc6122c9b58a35fd4ec093ba3d07d65c1cf8dd0b1b1a34bd5fdf707fb3",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/static/index.html",
+      "bytes": 12432,
+      "sha256": "e3ac27ad153978442d1ece9258baae868596b04b7dfa6214f7cc094bdf866de5",
+      "base_sha256": "7c82f99e9a3bfc326248c48599f2bce62a671ebee68ed99af6f670a1cf0595e7",
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/static/style.css",
+      "bytes": 25001,
+      "sha256": "d338dc2d1ef7bd7d65934e569ba2c2f881c38e817db117402703a4c3ccbbbb28",
+      "base_sha256": "d338dc2d1ef7bd7d65934e569ba2c2f881c38e817db117402703a4c3ccbbbb28",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/static/vendor/CHART-VENDOR.md",
+      "bytes": 744,
+      "sha256": "8f4f5371b52cc4aba83bac9d1ee30149f98d54dd4fcced74fa77ad8067a2b176",
+      "base_sha256": "8f4f5371b52cc4aba83bac9d1ee30149f98d54dd4fcced74fa77ad8067a2b176",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/static/vendor/ECHARTS-LICENSE.txt",
+      "bytes": 11990,
+      "sha256": "634293835b43a6dd2094fa39182a3d9a6b9ca43b7fdb9ac354e8037af2a3093a",
+      "base_sha256": "634293835b43a6dd2094fa39182a3d9a6b9ca43b7fdb9ac354e8037af2a3093a",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/static/vendor/ECHARTS-NOTICE.txt",
+      "bytes": 168,
+      "sha256": "d491d358344f842685c1b1585970999db65fe30ecf7ef3867af8814f4016c016",
+      "base_sha256": "d491d358344f842685c1b1585970999db65fe30ecf7ef3867af8814f4016c016",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/static/vendor/LIQUID-FILL-LICENSE.txt",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "base_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/static/vendor/LIQUID-FILL-NOTICE.txt",
+      "bytes": 183,
+      "sha256": "6f00360c47d1ac9697ba9826e5b3caf3afb12109ad12274a102f5922f6b0d57d",
+      "base_sha256": "6f00360c47d1ac9697ba9826e5b3caf3afb12109ad12274a102f5922f6b0d57d",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/static/vendor/WORD-CLOUD-LICENSE.txt",
+      "bytes": 11608,
+      "sha256": "6702d528d4ff9a92fd3bf83e82a448aef836957c26e218e046ae31f8ff28f761",
+      "base_sha256": "6702d528d4ff9a92fd3bf83e82a448aef836957c26e218e046ae31f8ff28f761",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/static/vendor/WORD-CLOUD-NOTICE.txt",
+      "bytes": 183,
+      "sha256": "6f00360c47d1ac9697ba9826e5b3caf3afb12109ad12274a102f5922f6b0d57d",
+      "base_sha256": "6f00360c47d1ac9697ba9826e5b3caf3afb12109ad12274a102f5922f6b0d57d",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/static/vendor/echarts-custom-liquid-fill.auto.js",
+      "bytes": 7961,
+      "sha256": "e11ce65f8e8fd7f4271fbebc412e6382ba5f912d5429f9d962694f00477db2ba",
+      "base_sha256": "e11ce65f8e8fd7f4271fbebc412e6382ba5f912d5429f9d962694f00477db2ba",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/static/vendor/echarts-custom-word-cloud.auto.js",
+      "bytes": 15083,
+      "sha256": "cd512d1af5016711fe196439d9c8eb3efe1eb54ae7003472172f81d86f3e427a",
+      "base_sha256": "cd512d1af5016711fe196439d9c8eb3efe1eb54ae7003472172f81d86f3e427a",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/static/vendor/echarts.min.js",
+      "bytes": 1121883,
+      "sha256": "b66b25aeb4df84e33199dc21694014d336d222cbd9deb0e5a7c14bd6aa0d0fd0",
+      "base_sha256": "b66b25aeb4df84e33199dc21694014d336d222cbd9deb0e5a7c14bd6aa0d0fd0",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/static/vendor/highlight-github.min.css",
+      "bytes": 1309,
+      "sha256": "3a9a5def8b9c311e5ae43abde85c63133185eed4f0d9f67fea4b00a8308cf066",
+      "base_sha256": "3a9a5def8b9c311e5ae43abde85c63133185eed4f0d9f67fea4b00a8308cf066",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/static/vendor/highlight.min.js",
+      "bytes": 121727,
+      "sha256": "837a6fa5b0c736b52bbde2b2b6190f305da3fc9ed41681db5321507057b5c846",
+      "base_sha256": "837a6fa5b0c736b52bbde2b2b6190f305da3fc9ed41681db5321507057b5c846",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/main/resources/static/vendor/marked.min.js",
+      "bytes": 39233,
+      "sha256": "82c375b84779649a4a04248d75e1d4a6124e7378c48d516bccf176455e439940",
+      "base_sha256": "82c375b84779649a4a04248d75e1d4a6124e7378c48d516bccf176455e439940",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/billing/BillingServiceTest.java",
+      "bytes": 5635,
+      "sha256": "e8df2fb5c09530025de1920be344bc26fb0c7c335987bb0434a9dacf4ce9d993",
+      "base_sha256": "e8df2fb5c09530025de1920be344bc26fb0c7c335987bb0434a9dacf4ce9d993",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/AssistantBeanDependencyTest.java",
+      "bytes": 6135,
+      "sha256": "0d706bc691409c6ae61a8801cb9ef0f5da906a1bdf5ee49f40b85a94fd744a9a",
+      "base_sha256": "0d706bc691409c6ae61a8801cb9ef0f5da906a1bdf5ee49f40b85a94fd744a9a",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/ChatControllerTest.java",
+      "bytes": 11247,
+      "sha256": "8277d114c03341176537663157b0007cbe675616c638e22a3f13de5ce09aacc1",
+      "base_sha256": "8277d114c03341176537663157b0007cbe675616c638e22a3f13de5ce09aacc1",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/DocumentLoaderServiceTest.java",
+      "bytes": 8877,
+      "sha256": "943c1285622754811dcb1ddc481287bce4d9bb3c5b7538d239afd5f6923c0dfc",
+      "base_sha256": "943c1285622754811dcb1ddc481287bce4d9bb3c5b7538d239afd5f6923c0dfc",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/ErpAssistantNonStreamingChartTest.java",
+      "bytes": 11618,
+      "sha256": "b5362328d434ba162d2ae3a878b607600948837afa061f6fc22cff8cc28db958",
+      "base_sha256": "b5362328d434ba162d2ae3a878b607600948837afa061f6fc22cff8cc28db958",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/ErpAssistantServiceTest.java",
+      "bytes": 22673,
+      "sha256": "3ff43f9fe11d0bf31a37237ed1770f3168b0ef337dba5cbf07a2feb6b89c2b9d",
+      "base_sha256": "0800754626e8c89406defab57774c69b3a1c2972fd7f870f51ca6cbdfee822e5",
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/ErpAssistantStreamTest.java",
+      "bytes": 16173,
+      "sha256": "f8c4094b352cc34ad20211519225a7c02a384b143e2aca76a6f1802327b9dd85",
+      "base_sha256": "f8c4094b352cc34ad20211519225a7c02a384b143e2aca76a6f1802327b9dd85",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/GatewayModelConfigTest.java",
+      "bytes": 7477,
+      "sha256": "430ef41db27da15739f62738381cec4aba1ea5c1783b6a9f3a7eb10693c8de3b",
+      "base_sha256": "430ef41db27da15739f62738381cec4aba1ea5c1783b6a9f3a7eb10693c8de3b",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/ModelGatewayHttpTest.java",
+      "bytes": 23920,
+      "sha256": "92a6ceee17a6d806428bb0df5a3a5ec8c0ed732f71dcf6ce8ac13fb608b16045",
+      "base_sha256": "92a6ceee17a6d806428bb0df5a3a5ec8c0ed732f71dcf6ce8ac13fb608b16045",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/ModelGatewayIT.java",
+      "bytes": 15108,
+      "sha256": "100d3e7a26e956bcf8fd56bdc1877bfdcbaac6390795e841e1000bd173db9f0f",
+      "base_sha256": "100d3e7a26e956bcf8fd56bdc1877bfdcbaac6390795e841e1000bd173db9f0f",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/ModelRegistryTest.java",
+      "bytes": 7567,
+      "sha256": "85960284d50ba9dbb3254887308ef5e220df18e2dded2855c9ab8fd3616faca2",
+      "base_sha256": "85960284d50ba9dbb3254887308ef5e220df18e2dded2855c9ab8fd3616faca2",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/OpenAiDirectHttpTest.java",
+      "bytes": 14891,
+      "sha256": "82010f7970d48077a4975fc562bf5e7d422154e283c9e201ce9d5c78a94b2f2d",
+      "base_sha256": "82010f7970d48077a4975fc562bf5e7d422154e283c9e201ce9d5c78a94b2f2d",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/chart/capture/ToolResultRecorderTest.java",
+      "bytes": 10643,
+      "sha256": "eaeb35f80ceae3ca0e5c8e274909431a82df77ffdac6dc478706ac64fe698dd6",
+      "base_sha256": "eaeb35f80ceae3ca0e5c8e274909431a82df77ffdac6dc478706ac64fe698dd6",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/chart/compile/ChartCompilerTest.java",
+      "bytes": 33546,
+      "sha256": "752e4279a5b5028b1ca35dcd6b787490d3c54781ff7d5ed6d2f14eaeb206090e",
+      "base_sha256": "752e4279a5b5028b1ca35dcd6b787490d3c54781ff7d5ed6d2f14eaeb206090e",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/chart/compile/ChartPlanFactoryTest.java",
+      "bytes": 12266,
+      "sha256": "5d087a6634a9b979dd1ee043de9b6999807c2acba8827febf937ac115325a116",
+      "base_sha256": "5d087a6634a9b979dd1ee043de9b6999807c2acba8827febf937ac115325a116",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/chart/protocol/ChartSpecCodecTest.java",
+      "bytes": 11524,
+      "sha256": "4093e2ff5a59f79f601259a160b46ef556ee9a75a1186f6c5d9bdec6444de285",
+      "base_sha256": "4093e2ff5a59f79f601259a160b46ef556ee9a75a1186f6c5d9bdec6444de285",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/chart/selection/ChartSelectionServiceTest.java",
+      "bytes": 9421,
+      "sha256": "5369e80c98187fe9cd44aa7cba03c9cb3fb517feed8e9fa6c3feb656bc0c2365",
+      "base_sha256": "5369e80c98187fe9cd44aa7cba03c9cb3fb517feed8e9fa6c3feb656bc0c2365",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/chart/tool/ChartPlanToolCallbackTest.java",
+      "bytes": 12930,
+      "sha256": "fa2cc8c47bd8b315220077f5d2b83103cb194636a4b1687b8ff5953778bace91",
+      "base_sha256": "fa2cc8c47bd8b315220077f5d2b83103cb194636a4b1687b8ff5953778bace91",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/client/AssistantClientProviderTest.java",
+      "bytes": 8243,
+      "sha256": "80e5ac578341febb07e60378a26d8ff0f1905696ac5dfc1cabbcfc56e17fc7cd",
+      "base_sha256": "80e5ac578341febb07e60378a26d8ff0f1905696ac5dfc1cabbcfc56e17fc7cd",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/guard/BusinessDataTurnGuardTest.java",
+      "bytes": 11319,
+      "sha256": "41662c38d3f5ed91472f2af7db28d132ffce880ef7b815268f612bb83e5b9a46",
+      "base_sha256": "41662c38d3f5ed91472f2af7db28d132ffce880ef7b815268f612bb83e5b9a46",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/output/AssistantAnswerSanitizerTest.java",
+      "bytes": 17449,
+      "sha256": "996639fdfef33acdd1111a9acf5491c6a48b32bf9d65428029dcc6bd2d8fc166",
+      "base_sha256": "4ca1158b92e4d15fc10e99bad82e34d8fbc254b5cbdfdea8d7bcb27b745c8543",
+      "origin": "new-or-reviewed-replacement",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/rag/EmbeddingModelResourceTest.java",
+      "bytes": 5026,
+      "sha256": "05272609abe0a3b1c832fb6a8a48fec4f44cbef4ec07070ac1d3cb084a6c5347",
+      "base_sha256": "05272609abe0a3b1c832fb6a8a48fec4f44cbef4ec07070ac1d3cb084a6c5347",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/rag/RagAdvisorFactoryTest.java",
+      "bytes": 9339,
+      "sha256": "02e9947ed9095abf10e6da856ad9155d2d48db914fb76bcc4a214d9b28b7ef7e",
+      "base_sha256": "02e9947ed9095abf10e6da856ad9155d2d48db914fb76bcc4a214d9b28b7ef7e",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/rag/RagAnswerServiceTest.java",
+      "bytes": 1887,
+      "sha256": "984ef43be3b85fadfa75cf2219ca6d3ba133febde5af4d21895baec95f0287ab",
+      "base_sha256": "984ef43be3b85fadfa75cf2219ca6d3ba133febde5af4d21895baec95f0287ab",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/rag/RagCitationValidatorTest.java",
+      "bytes": 6449,
+      "sha256": "e09287355d6633b78328f9239ff200236307663b2e6b38d91017bb9e4ca7027a",
+      "base_sha256": "e09287355d6633b78328f9239ff200236307663b2e6b38d91017bb9e4ca7027a",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/rag/RagContextFormatterTest.java",
+      "bytes": 2477,
+      "sha256": "7d5c836304c1be018639129f77e6e77360aef2f8cd593f572a14d3698739fee4",
+      "base_sha256": "7d5c836304c1be018639129f77e6e77360aef2f8cd593f572a14d3698739fee4",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/rag/RagDocumentEligibilityFilterTest.java",
+      "bytes": 8000,
+      "sha256": "80f567548b96abd43c4b8c12561862851e832b8aa1b610c0fdc824614e8afbd0",
+      "base_sha256": "80f567548b96abd43c4b8c12561862851e832b8aa1b610c0fdc824614e8afbd0",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/chat/rag/RagEvidenceExtractorTest.java",
+      "bytes": 1623,
+      "sha256": "b2809bf614cb42778ac9720475421edac2b5f0d929a338118e36a940526ca7b9",
+      "base_sha256": "b2809bf614cb42778ac9720475421edac2b5f0d929a338118e36a940526ca7b9",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/config/TenantPropertiesTest.java",
+      "bytes": 1389,
+      "sha256": "3841c12b536cb1daaed30b53fcf605863cebb4bffba1c35b09c0c915f7cb554a",
+      "base_sha256": "3841c12b536cb1daaed30b53fcf605863cebb4bffba1c35b09c0c915f7cb554a",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/conversation/ChatHistoryServiceTest.java",
+      "bytes": 12372,
+      "sha256": "ef3bcfb51de6bee0dd7d2778b894f5d81bb0e169c1f1c8a552fcad5a511ce982",
+      "base_sha256": "ef3bcfb51de6bee0dd7d2778b894f5d81bb0e169c1f1c8a552fcad5a511ce982",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/conversation/JdbcChatMemoryRepositoryTest.java",
+      "bytes": 1333,
+      "sha256": "4dcaefb4eb6747b4390f2b4c65251936762c08de1b4ed54540afc069808abc40",
+      "base_sha256": "4dcaefb4eb6747b4390f2b4c65251936762c08de1b4ed54540afc069808abc40",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/frontend/StaticFrontendContractTest.java",
+      "bytes": 18663,
+      "sha256": "77d163fc3533e82b131151568f77fb3e69e1e345bc63a65d561172099f0ac4b3",
+      "base_sha256": "77d163fc3533e82b131151568f77fb3e69e1e345bc63a65d561172099f0ac4b3",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/init/ErpDatabaseInitializerTest.java",
+      "bytes": 11895,
+      "sha256": "d785a49f0937a630b7d247fe4758035cf7bdf5e6f0b687aefeb97efaae917a1d",
+      "base_sha256": "d785a49f0937a630b7d247fe4758035cf7bdf5e6f0b687aefeb97efaae917a1d",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/knowledge/KnowledgeBaseControllerTest.java",
+      "bytes": 7812,
+      "sha256": "bcdbaecf0d1e0928f264a5eb46489a1286c6c557232b92e74daeccd3c463e114",
+      "base_sha256": "bcdbaecf0d1e0928f264a5eb46489a1286c6c557232b92e74daeccd3c463e114",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/knowledge/KnowledgeBaseServiceTest.java",
+      "bytes": 9336,
+      "sha256": "1a3dd0cca5437d493a346ea924afdbb8e297815949180d4550fad1761c848ca2",
+      "base_sha256": "1a3dd0cca5437d493a346ea924afdbb8e297815949180d4550fad1761c848ca2",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/knowledge/KnowledgeDocumentIngestionServiceTest.java",
+      "bytes": 7758,
+      "sha256": "dd4f01c687d9e50f60cdd5661856fa101e2223def631796f7c8be1a145c89038",
+      "base_sha256": "dd4f01c687d9e50f60cdd5661856fa101e2223def631796f7c8be1a145c89038",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/knowledge/KnowledgeDocumentServiceTest.java",
+      "bytes": 10326,
+      "sha256": "93997e51886519c831375cdb0526a402359ac4f9b08295f107c886c9ce8ea09b",
+      "base_sha256": "93997e51886519c831375cdb0526a402359ac4f9b08295f107c886c9ce8ea09b",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationAnswerCheck.java",
+      "bytes": 431,
+      "sha256": "6dd70abb5839cb1344e07c684c65bd3e95fc30ed0f5bff086239b3147ebd99d8",
+      "base_sha256": "6dd70abb5839cb1344e07c684c65bd3e95fc30ed0f5bff086239b3147ebd99d8",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationAnswerChecker.java",
+      "bytes": 8804,
+      "sha256": "a3e677868c1ed37cf3c6acde490dbbbcb03a5df87b7d0d12eb22ff91e2a988d1",
+      "base_sha256": "a3e677868c1ed37cf3c6acde490dbbbcb03a5df87b7d0d12eb22ff91e2a988d1",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationAnswerCheckerTest.java",
+      "bytes": 9389,
+      "sha256": "c56708d37a7e4497a5d22886b16ad74a3b153720659bd06f9d8fc765d9a5d567",
+      "base_sha256": "c56708d37a7e4497a5d22886b16ad74a3b153720659bd06f9d8fc765d9a5d567",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationBaseline.java",
+      "bytes": 224,
+      "sha256": "c0b09998d9c3371b3a51b522974e88d951c20bfc05d0d4f92132c76c0c3f4464",
+      "base_sha256": "c0b09998d9c3371b3a51b522974e88d951c20bfc05d0d4f92132c76c0c3f4464",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationBuildContractTest.java",
+      "bytes": 2619,
+      "sha256": "9e6b6399dd0a048bcc73b735efb18e08ee1df615643ee19e0043e85ad63535c6",
+      "base_sha256": "9e6b6399dd0a048bcc73b735efb18e08ee1df615643ee19e0043e85ad63535c6",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationCase.java",
+      "bytes": 894,
+      "sha256": "2feae7e9d681862b8ace497049188e60784fa41eadd2ac3f6df0e1d56179e36f",
+      "base_sha256": "2feae7e9d681862b8ace497049188e60784fa41eadd2ac3f6df0e1d56179e36f",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationCaseResult.java",
+      "bytes": 2309,
+      "sha256": "ec05813bb38f8e04247e259dab485642a6ebaab0a447217f3029b8255f41b8fa",
+      "base_sha256": "ec05813bb38f8e04247e259dab485642a6ebaab0a447217f3029b8255f41b8fa",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationCleanupSummary.java",
+      "bytes": 715,
+      "sha256": "87156df37598988412dd1c3c39744373775a3dd6497eba683c0a5524239f3c45",
+      "base_sha256": "87156df37598988412dd1c3c39744373775a3dd6497eba683c0a5524239f3c45",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationDataset.java",
+      "bytes": 490,
+      "sha256": "719b84f239ef0aeb818b308ed5e986249a585b34ba6afe7d284ace52e51fb724",
+      "base_sha256": "719b84f239ef0aeb818b308ed5e986249a585b34ba6afe7d284ace52e51fb724",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationDatasetLoader.java",
+      "bytes": 6967,
+      "sha256": "d7dc04d9bbf7dfba6159b518b6bc5ad166eff2aee646344c0b187b6dcc8a371d",
+      "base_sha256": "d7dc04d9bbf7dfba6159b518b6bc5ad166eff2aee646344c0b187b6dcc8a371d",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationDatasetLoaderTest.java",
+      "bytes": 4223,
+      "sha256": "4a1ad908a088e0d316930cbe300791ff7fd026310802ebb8c29ca6c75f04269d",
+      "base_sha256": "4a1ad908a088e0d316930cbe300791ff7fd026310802ebb8c29ca6c75f04269d",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationGate.java",
+      "bytes": 3476,
+      "sha256": "bdf56da780475e7273513ee7858cf53f6ab06b797cb9bf8107beef08c19a71e2",
+      "base_sha256": "bdf56da780475e7273513ee7858cf53f6ab06b797cb9bf8107beef08c19a71e2",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationGateResult.java",
+      "bytes": 240,
+      "sha256": "14f1bd802023a5f5624eed8c0086130df843f2eafe9bcaca5b867e808d40c17b",
+      "base_sha256": "14f1bd802023a5f5624eed8c0086130df843f2eafe9bcaca5b867e808d40c17b",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationIT.java",
+      "bytes": 39314,
+      "sha256": "24c812347b7d97c07dc7ea8954aa9f880bea10f39129be691251faa4dbda7f56",
+      "base_sha256": "24c812347b7d97c07dc7ea8954aa9f880bea10f39129be691251faa4dbda7f56",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationMetrics.java",
+      "bytes": 6582,
+      "sha256": "8ace18d8342710547c145470712c7d06c20e4e0355e20677d92882721bfabda7",
+      "base_sha256": "8ace18d8342710547c145470712c7d06c20e4e0355e20677d92882721bfabda7",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationMetricsTest.java",
+      "bytes": 5928,
+      "sha256": "a711521abc1e14e0aacf2fba5b3d728f1ebf6491679dbae4c98a94eb97a64db4",
+      "base_sha256": "a711521abc1e14e0aacf2fba5b3d728f1ebf6491679dbae4c98a94eb97a64db4",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationRefusalBoundaryTest.java",
+      "bytes": 3091,
+      "sha256": "5eb455d6c34ccb8538b5d4a7e556765a89a34e46e3fe394f054e82c1ccff023d",
+      "base_sha256": "5eb455d6c34ccb8538b5d4a7e556765a89a34e46e3fe394f054e82c1ccff023d",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationRefusalClassifier.java",
+      "bytes": 8961,
+      "sha256": "e0b489744e59cf0f7d8cb89f924fdddb2a754da83550b605102603d7d6184db7",
+      "base_sha256": "e0b489744e59cf0f7d8cb89f924fdddb2a754da83550b605102603d7d6184db7",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationRefusalClassifierTest.java",
+      "bytes": 23750,
+      "sha256": "1dd7a1b1b7f2e270adb4ee7199db32304b702cf881c1d1cac3a73470716fac7a",
+      "base_sha256": "1dd7a1b1b7f2e270adb4ee7199db32304b702cf881c1d1cac3a73470716fac7a",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationReport.java",
+      "bytes": 561,
+      "sha256": "60cd8f6cd480bf5f2d6eed1daf428324d1c3df19d9593bc4684fddee60e8b9f5",
+      "base_sha256": "60cd8f6cd480bf5f2d6eed1daf428324d1c3df19d9593bc4684fddee60e8b9f5",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationReportWriter.java",
+      "bytes": 8267,
+      "sha256": "d9e8604bf446d43d84f1f5c54b6c8f5a759e91f2f85adc5d5efb8e0a2ca13544",
+      "base_sha256": "d9e8604bf446d43d84f1f5c54b6c8f5a759e91f2f85adc5d5efb8e0a2ca13544",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationReportWriterTest.java",
+      "bytes": 4960,
+      "sha256": "69293d23d5b15a22f955db439d8c9f6be2598ba57aea21e163ce94efdb1a7fa6",
+      "base_sha256": "69293d23d5b15a22f955db439d8c9f6be2598ba57aea21e163ce94efdb1a7fa6",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationSummary.java",
+      "bytes": 1608,
+      "sha256": "1b31e86f19bcb72d20c57d47bb3b11aa48b5d26336bb7ff5836f9082abda5995",
+      "base_sha256": "1b31e86f19bcb72d20c57d47bb3b11aa48b5d26336bb7ff5836f9082abda5995",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationUsageTracker.java",
+      "bytes": 3115,
+      "sha256": "cad867e3b2780e8acc439130e33587947dfe6e80acd7a2465052f2904d6c92fa",
+      "base_sha256": "cad867e3b2780e8acc439130e33587947dfe6e80acd7a2465052f2904d6c92fa",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagEvaluationUsageTrackerTest.java",
+      "bytes": 1470,
+      "sha256": "d8b70ce705da772db2bdc3b7ab6210916e9f91fbfc98b604cde1dd78a0a102bc",
+      "base_sha256": "d8b70ce705da772db2bdc3b7ab6210916e9f91fbfc98b604cde1dd78a0a102bc",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagExecutionDiagnostics.java",
+      "bytes": 7681,
+      "sha256": "a491a12266f0ee447a549e69364431d6fcb44b305ac6820d71abf0580b51ea58",
+      "base_sha256": "a491a12266f0ee447a549e69364431d6fcb44b305ac6820d71abf0580b51ea58",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagExecutionDiagnosticsTest.java",
+      "bytes": 8256,
+      "sha256": "c423f7d532d0412c7da6f695aa2ebb8c65c4aceb4e5060131625e60d0c90732e",
+      "base_sha256": "c423f7d532d0412c7da6f695aa2ebb8c65c4aceb4e5060131625e60d0c90732e",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagOfflineTokenCounter.java",
+      "bytes": 1483,
+      "sha256": "0ad610dca319ace0568871d0d3f49e6ea1ad186f00141b64c0e38d8ea749d872",
+      "base_sha256": "0ad610dca319ace0568871d0d3f49e6ea1ad186f00141b64c0e38d8ea749d872",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/rageval/RagOfflineTokenCounterTest.java",
+      "bytes": 1170,
+      "sha256": "ed0414350e086dd542c958815a4659ff1487699502266c941d2cef5abc1d7dec",
+      "base_sha256": "ed0414350e086dd542c958815a4659ff1487699502266c941d2cef5abc1d7dec",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/tool/admin/ToolManagementServiceTest.java",
+      "bytes": 7644,
+      "sha256": "885b60da11c8ea1d63729fffee286d3fff02ec73ff33aeb1d31756ba11a09e6c",
+      "base_sha256": "885b60da11c8ea1d63729fffee286d3fff02ec73ff33aeb1d31756ba11a09e6c",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/tool/dynamic/DatabaseToolCallbackTest.java",
+      "bytes": 2202,
+      "sha256": "7ae52e71972e20f3911b3bb48f573fc2c84833f4ee09eb31f3db2b93e8a36c1a",
+      "base_sha256": "7ae52e71972e20f3911b3bb48f573fc2c84833f4ee09eb31f3db2b93e8a36c1a",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/tool/dynamic/DatabaseToolExecutorTest.java",
+      "bytes": 6542,
+      "sha256": "d3707efb30e921a3b63e492b098ca2aee245ade7734214ffe97f725078edaf47",
+      "base_sha256": "d3707efb30e921a3b63e492b098ca2aee245ade7734214ffe97f725078edaf47",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/tool/dynamic/SqlTemplateBinderTest.java",
+      "bytes": 2025,
+      "sha256": "e2b144caf795db917052f2267375a94057ae9f6b4c62cdfe6adab27c12c9983b",
+      "base_sha256": "e2b144caf795db917052f2267375a94057ae9f6b4c62cdfe6adab27c12c9983b",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/tool/dynamic/SqlToolValidatorTest.java",
+      "bytes": 4592,
+      "sha256": "f0b63b4832f9cc2d4ce188d0592bb27d328fdda514d61f129c6f97e7b55a13f4",
+      "base_sha256": "f0b63b4832f9cc2d4ce188d0592bb27d328fdda514d61f129c6f97e7b55a13f4",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/tool/dynamic/TenantSqlInjectorTest.java",
+      "bytes": 2157,
+      "sha256": "d7b08c147f7a29f52b9728dd2f125369b8418fc2820c8ee240730650f6d086a3",
+      "base_sha256": "d7b08c147f7a29f52b9728dd2f125369b8418fc2820c8ee240730650f6d086a3",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/tool/registry/ToolRegistryServiceTest.java",
+      "bytes": 5969,
+      "sha256": "0b01eeb30d7ad0506f5ecc327fcec9df9e6f343b13392d7dd858868abda7f84f",
+      "base_sha256": "0b01eeb30d7ad0506f5ecc327fcec9df9e6f343b13392d7dd858868abda7f84f",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/tool/trace/LoggingToolCallbackTest.java",
+      "bytes": 2383,
+      "sha256": "99c4effd3c9e30791ec893ad51b8ce4491bb2cbcd9e41dfa4430f977390e15d8",
+      "base_sha256": "99c4effd3c9e30791ec893ad51b8ce4491bb2cbcd9e41dfa4430f977390e15d8",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/tool/trace/ToolCallLogServiceTest.java",
+      "bytes": 1179,
+      "sha256": "b12fd4b3d07e6b309c6a0c7ffcec0d4db61d3bd4d935fc8cf57fb534d91a75f1",
+      "base_sha256": "b12fd4b3d07e6b309c6a0c7ffcec0d4db61d3bd4d935fc8cf57fb534d91a75f1",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/java/com/example/rag/vo/RespVOJacksonCompatibilityTest.java",
+      "bytes": 1518,
+      "sha256": "d354c7d7b8db8858e4fb57f16737749174fa310930776cc685cfcd9a7b6d9595",
+      "base_sha256": "d354c7d7b8db8858e4fb57f16737749174fa310930776cc685cfcd9a7b6d9595",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/resources/chart-adapter-fixtures.js",
+      "bytes": 16600,
+      "sha256": "a5be4ae8bec6198d5857c0fc3b169bdb705309e0e1bb862132ac995ff816c73f",
+      "base_sha256": "a5be4ae8bec6198d5857c0fc3b169bdb705309e0e1bb862132ac995ff816c73f",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/resources/chart-pipeline-fixture.json",
+      "bytes": 3769,
+      "sha256": "eb2d203530cd3138693ce07ad35120002ff3cd141328028ad1081cb3020c8590",
+      "base_sha256": "eb2d203530cd3138693ce07ad35120002ff3cd141328028ad1081cb3020c8590",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/resources/rag-eval/diagnostics/reconstruction-v1.json",
+      "bytes": 122209,
+      "sha256": "dea815e16d67ae71b0d84d452c71c8d229db689113fb281e7bd6b3606e448c3e",
+      "base_sha256": "dea815e16d67ae71b0d84d452c71c8d229db689113fb281e7bd6b3606e448c3e",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/resources/rag-eval/v1/baseline.json",
+      "bytes": 43,
+      "sha256": "93eb9dd491891954eef0e44ffb673b177c9894a40a93c356d46dce4322c93a7d",
+      "base_sha256": "93eb9dd491891954eef0e44ffb673b177c9894a40a93c356d46dce4322c93a7d",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/resources/rag-eval/v1/cases.jsonl",
+      "bytes": 14492,
+      "sha256": "38231df8e3bae06b03e6082a347b052b399f4ca703025bcc82e5557237fe8609",
+      "base_sha256": "38231df8e3bae06b03e6082a347b052b399f4ca703025bcc82e5557237fe8609",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/resources/rag-eval/v1/documents/billing-guide.txt",
+      "bytes": 583,
+      "sha256": "3adc3e4f7869926bb61f268f8ee9b0646a32e1aa44918e85112f1bbd87f96fa3",
+      "base_sha256": "3adc3e4f7869926bb61f268f8ee9b0646a32e1aa44918e85112f1bbd87f96fa3",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/resources/rag-eval/v1/documents/deployment-guide.txt",
+      "bytes": 606,
+      "sha256": "321628228a06e584b8dbee8b4264adfa572ff05e91b89599f16c7df9211e6197",
+      "base_sha256": "321628228a06e584b8dbee8b4264adfa572ff05e91b89599f16c7df9211e6197",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/resources/rag-eval/v1/documents/isolation-interference.txt",
+      "bytes": 325,
+      "sha256": "c084887df8f0194587d4c93ed030dad94b14fc276bf72514e42788b9aeebc676",
+      "base_sha256": "c084887df8f0194587d4c93ed030dad94b14fc276bf72514e42788b9aeebc676",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/resources/rag-eval/v1/documents/operations-guide.txt",
+      "bytes": 729,
+      "sha256": "75a23e9b8e5ab5e40a086337074d7702a86114fe7c06883750407a8577660e31",
+      "base_sha256": "75a23e9b8e5ab5e40a086337074d7702a86114fe7c06883750407a8577660e31",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/resources/rag-eval/v1/documents/product-manual.txt",
+      "bytes": 680,
+      "sha256": "586d0fd5fc78cec4629795963df79128245b7778831114add5270fcdb67b04df",
+      "base_sha256": "586d0fd5fc78cec4629795963df79128245b7778831114add5270fcdb67b04df",
+      "origin": "base-identical",
+      "git_lfs": false
+    },
+    {
+      "path": "src/test/resources/rag-eval/v1/documents/security-guide.txt",
+      "bytes": 834,
+      "sha256": "c4f4cd704a9bdb116a71534a4de5bc0c5a7c8b30a19d06ededce313d385d1546",
+      "base_sha256": "c4f4cd704a9bdb116a71534a4de5bc0c5a7c8b30a19d06ededce313d385d1546",
+      "origin": "base-identical",
+      "git_lfs": false
+    }
+  ],
+  "excluded_source_paths": [
+    ".cursor/commands/opsx-apply.md",
+    ".cursor/commands/opsx-archive.md",
+    ".cursor/commands/opsx-bulk-archive.md",
+    ".cursor/commands/opsx-continue.md",
+    ".cursor/commands/opsx-explore.md",
+    ".cursor/commands/opsx-ff.md",
+    ".cursor/commands/opsx-new.md",
+    ".cursor/commands/opsx-onboard.md",
+    ".cursor/commands/opsx-propose.md",
+    ".cursor/commands/opsx-sync.md",
+    ".cursor/commands/opsx-verify.md",
+    ".cursor/rules/ai-coding.mdc",
+    ".cursor/rules/openspec-docs.mdc",
+    ".cursor/rules/spring-ai-rag-demo-module.mdc",
+    ".cursor/skills/commit/SKILL.md",
+    ".cursor/skills/openspec-apply-change/SKILL.md",
+    ".cursor/skills/openspec-archive-change/SKILL.md",
+    ".cursor/skills/openspec-bulk-archive-change/SKILL.md",
+    ".cursor/skills/openspec-continue-change/SKILL.md",
+    ".cursor/skills/openspec-explore/SKILL.md",
+    ".cursor/skills/openspec-ff-change/SKILL.md",
+    ".cursor/skills/openspec-new-change/SKILL.md",
+    ".cursor/skills/openspec-onboard/SKILL.md",
+    ".cursor/skills/openspec-propose/SKILL.md",
+    ".cursor/skills/openspec-sync-specs/SKILL.md",
+    ".cursor/skills/openspec-verify-change/SKILL.md",
+    ".cursor/skills/pr/SKILL.md",
+    ".cursor/skills/review/SKILL.md",
+    ".dockerignore",
+    ".gitattributes",
+    ".gitignore",
+    ".mvn/wrapper/maven-wrapper.properties",
+    "README_EN.md",
+    "doc/chart-examples/01-bar.png",
+    "doc/chart-examples/02-waterfall.png",
+    "doc/chart-examples/03-bullet.png",
+    "doc/chart-examples/04-area.png",
+    "doc/chart-examples/05-step.png",
+    "doc/chart-examples/06-gantt.png",
+    "doc/img.gif",
+    "docs/4.0.0-rag-migration.md",
+    "docs/logs/20260630-containerized-runtime-init/chat_history.md",
+    "docs/logs/20260630-containerized-runtime-init/self_review.md",
+    "docs/logs/20260630-upgrade-spring-ai-2/chat_history.md",
+    "docs/logs/20260630-upgrade-spring-ai-2/self_review.md",
+    "docs/logs/20260701-dynamic-llm-tool-management/chat_history.md",
+    "docs/logs/20260701-dynamic-llm-tool-management/self_review.md",
+    "docs/logs/20260731-tool-result-chart-visualization/chat_history.md",
+    "docs/logs/20260731-tool-result-chart-visualization/self_review.md",
+    "docs/logs/20260907-knowledge-base-citations-and-rag-evaluation/chat_history.md",
+    "docs/logs/20260907-knowledge-base-citations-and-rag-evaluation/self_review.md",
+    "docs/publication-safety.md",
+    "docs/publication-sync.md",
+    "docs/readme-review.md",
+    "docs/third-party-resources.md",
+    "openspec/changes/archive/2026-04-29-chat-history-resume/.openspec.yaml",
+    "openspec/changes/archive/2026-04-29-chat-history-resume/design.md",
+    "openspec/changes/archive/2026-04-29-chat-history-resume/proposal.md",
+    "openspec/changes/archive/2026-04-29-chat-history-resume/specs/chat-history-resume/spec.md",
+    "openspec/changes/archive/2026-04-29-chat-history-resume/tasks.md",
+    "openspec/changes/archive/2026-04-29-chat-stop-streaming-answer/.openspec.yaml",
+    "openspec/changes/archive/2026-04-29-chat-stop-streaming-answer/design.md",
+    "openspec/changes/archive/2026-04-29-chat-stop-streaming-answer/proposal.md",
+    "openspec/changes/archive/2026-04-29-chat-stop-streaming-answer/specs/chat-streaming-cancellation/spec.md",
+    "openspec/changes/archive/2026-04-29-chat-stop-streaming-answer/tasks.md",
+    "openspec/changes/archive/2026-05-08-data-access-mybatis-plus-crud/.openspec.yaml",
+    "openspec/changes/archive/2026-05-08-data-access-mybatis-plus-crud/design.md",
+    "openspec/changes/archive/2026-05-08-data-access-mybatis-plus-crud/proposal.md",
+    "openspec/changes/archive/2026-05-08-data-access-mybatis-plus-crud/specs/data-access-mybatis-plus-crud/spec.md",
+    "openspec/changes/archive/2026-05-08-data-access-mybatis-plus-crud/tasks.md",
+    "openspec/changes/archive/2026-06-30-containerized-runtime-init/.openspec.yaml",
+    "openspec/changes/archive/2026-06-30-containerized-runtime-init/design.md",
+    "openspec/changes/archive/2026-06-30-containerized-runtime-init/proposal.md",
+    "openspec/changes/archive/2026-06-30-containerized-runtime-init/specs/containerized-runtime-init/spec.md",
+    "openspec/changes/archive/2026-06-30-containerized-runtime-init/tasks.md",
+    "openspec/changes/archive/2026-06-30-upgrade-spring-ai-2/.openspec.yaml",
+    "openspec/changes/archive/2026-06-30-upgrade-spring-ai-2/design.md",
+    "openspec/changes/archive/2026-06-30-upgrade-spring-ai-2/proposal.md",
+    "openspec/changes/archive/2026-06-30-upgrade-spring-ai-2/specs/spring-ai-2-runtime-compatibility/spec.md",
+    "openspec/changes/archive/2026-06-30-upgrade-spring-ai-2/tasks.md",
+    "openspec/changes/archive/2026-07-01-dynamic-llm-tool-management/.openspec.yaml",
+    "openspec/changes/archive/2026-07-01-dynamic-llm-tool-management/design.md",
+    "openspec/changes/archive/2026-07-01-dynamic-llm-tool-management/proposal.md",
+    "openspec/changes/archive/2026-07-01-dynamic-llm-tool-management/specs/dynamic-llm-tools/spec.md",
+    "openspec/changes/archive/2026-07-01-dynamic-llm-tool-management/specs/spring-ai-2-runtime-compatibility/spec.md",
+    "openspec/changes/archive/2026-07-01-dynamic-llm-tool-management/tasks.md",
+    "openspec/changes/archive/2026-08-01-tool-result-chart-visualization/.openspec.yaml",
+    "openspec/changes/archive/2026-08-01-tool-result-chart-visualization/design.md",
+    "openspec/changes/archive/2026-08-01-tool-result-chart-visualization/proposal.md",
+    "openspec/changes/archive/2026-08-01-tool-result-chart-visualization/specs/chat-history-resume/spec.md",
+    "openspec/changes/archive/2026-08-01-tool-result-chart-visualization/specs/chat-streaming-cancellation/spec.md",
+    "openspec/changes/archive/2026-08-01-tool-result-chart-visualization/specs/dynamic-llm-tools/spec.md",
+    "openspec/changes/archive/2026-08-01-tool-result-chart-visualization/specs/knowledge-document-ingestion/spec.md",
+    "openspec/changes/archive/2026-08-01-tool-result-chart-visualization/specs/tool-result-chart-visualization/spec.md",
+    "openspec/changes/archive/2026-08-01-tool-result-chart-visualization/tasks.md",
+    "openspec/changes/archive/2026-09-08-knowledge-base-citations-and-rag-evaluation/.openspec.yaml",
+    "openspec/changes/archive/2026-09-08-knowledge-base-citations-and-rag-evaluation/design.md",
+    "openspec/changes/archive/2026-09-08-knowledge-base-citations-and-rag-evaluation/proposal.md",
+    "openspec/changes/archive/2026-09-08-knowledge-base-citations-and-rag-evaluation/specs/chat-history-resume/spec.md",
+    "openspec/changes/archive/2026-09-08-knowledge-base-citations-and-rag-evaluation/specs/chat-streaming-cancellation/spec.md",
+    "openspec/changes/archive/2026-09-08-knowledge-base-citations-and-rag-evaluation/specs/knowledge-base-management/spec.md",
+    "openspec/changes/archive/2026-09-08-knowledge-base-citations-and-rag-evaluation/specs/knowledge-document-ingestion/spec.md",
+    "openspec/changes/archive/2026-09-08-knowledge-base-citations-and-rag-evaluation/specs/rag-answer-citations/spec.md",
+    "openspec/changes/archive/2026-09-08-knowledge-base-citations-and-rag-evaluation/specs/rag-quality-evaluation/spec.md",
+    "openspec/changes/archive/2026-09-08-knowledge-base-citations-and-rag-evaluation/tasks.md",
+    "openspec/config.yaml",
+    "openspec/context/spring-ai-rag-demo.md",
+    "openspec/specs/chat-history-resume/spec.md",
+    "openspec/specs/chat-streaming-cancellation/spec.md",
+    "openspec/specs/containerized-runtime-init/spec.md",
+    "openspec/specs/data-access-mybatis-plus-crud/spec.md",
+    "openspec/specs/dynamic-llm-tools/spec.md",
+    "openspec/specs/knowledge-base-management/spec.md",
+    "openspec/specs/knowledge-document-ingestion/spec.md",
+    "openspec/specs/rag-answer-citations/spec.md",
+    "openspec/specs/rag-quality-evaluation/spec.md",
+    "openspec/specs/spring-ai-2-runtime-compatibility/spec.md",
+    "openspec/specs/tool-result-chart-visualization/spec.md"
+  ],
+  "excluded_source_path_note": "Some safety/configuration/document paths are newly authored replacements; only the files list defines the final allowlist."
+}

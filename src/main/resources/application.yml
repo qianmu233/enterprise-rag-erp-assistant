@@ -1,0 +1,125 @@
+app:
+  tenant:
+    # ERP 多租户列名；MyBatis-Plus 租户插件会自动给租户隔离表追加该列条件
+    column: ent_code
+    # 全局配置表没有 ent_code 字段，必须跳过租户条件注入
+    ignore-tables:
+      - a_billing_plan
+      - a_billing_price_rule
+      - a_llm_tool
+
+  # 可用模型列表，前端从 /api/models 接口获取并展示在下拉框中
+  # provider 对应 Spring AI 的 ChatModel bean 名称（deepseek / openai 等）
+  # model-name 为实际传给 API 的模型标识符
+  models:
+    - id: deepseek-chat
+      label: DeepSeek Chat（通用）
+      provider: deepseek
+      model-name: deepseek-chat
+      default: true
+    - id: deepseek-reasoner
+      label: DeepSeek R1（推理）
+      provider: deepseek
+      model-name: deepseek-reasoner
+    # --- 通义千问（走 OpenAI 兼容协议） ---
+    - id: qwen-max
+      label: 通义千问 Max
+      provider: openai
+      model-name: qvq-max-2025-03-25
+    - id: qwen-turbo
+      label: 通义千问 Turbo
+      provider: openai
+      model-name: qwen-turbo
+    # --- Google Gemini ---
+    - id: gemini-2.0-flash
+      label: Gemini 2.0 Flash
+      provider: google-genai
+      model-name: gemini-2.0-flash
+
+spring:
+  # 文档上传的单文件与整次请求大小上限
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 550MB
+
+  ai:
+    # Spring AI 2.x 多个 embedding starter 同时存在时，显式选择本地 transformers，避免 PgVector 注入远程 OpenAI EmbeddingModel。
+    model:
+      embedding: transformers
+
+    # DeepSeek 大模型（API Key: https://platform.deepseek.com/api_keys）
+    deepseek:
+      api-key: ${DEEPSEEK_API_KEY:sk-your-deepseek-key}
+      chat:
+        # 默认模型，可被请求级 ChatOptions 覆盖
+        model: deepseek-chat
+
+    # 通义千问 DashScope OpenAI 兼容接口（API Key: https://bailian.console.aliyun.com/cn-beijing?tab=model#/api-key）
+    # Spring AI 2.0 自定义地址需包含完整 /v1 前缀，不会自动追加
+    openai:
+      api-key: ${DASHSCOPE_API_KEY:sk-your-dashscope-key}
+      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+      chat:
+        model: qvq-max-2025-03-25
+
+    # Google Gemini（API Key: https://aistudio.google.com/app/apikey）
+    google:
+      genai:
+        api-key: ${GOOGLE_GENAI_API_KEY:your-google-genai-key}
+        chat:
+          model: gemini-2.0-flash
+
+    # 使用 ONNX Runtime 在本地运行支持中文的多语言 sentence-transformers 模型，无需调用远程 API
+    # 模型 paraphrase-multilingual-MiniLM-L12-v2：输出 384 维向量，采用平均池化
+    embedding:
+      transformer:
+        onnx:
+          # ONNX 模型文件，已预下载到项目 resources/models/embedding/ 目录，启动时直接加载无需联网
+          model-uri: classpath:models/embedding/model.onnx
+        tokenizer:
+          # 对应的分词器配置，用于将输入文本拆分为模型可处理的 token
+          uri: classpath:models/embedding/tokenizer.json
+          options:
+            addSpecialTokens: "true"
+            truncation: "true"
+            padding: "true"
+            maxLength: "128"
+
+    # PgVector 向量数据库配置，用于存储和检索文档的嵌入向量
+    vectorstore:
+      pgvector:
+        # 索引类型：HNSW（Hierarchical Navigable Small World），近似最近邻搜索算法，查询速度快、精度高
+        index-type: hnsw
+        # 距离度量：余弦距离，衡量两个向量的方向相似度，值越小越相似
+        distance-type: cosine_distance
+        # 向量维度：须与嵌入模型输出维度一致（多语言 MiniLM 输出 384 维）
+        dimensions: 384
+        # 启动时自动创建 PgVector 所需的表和索引（首次运行必须为 true）
+        initialize-schema: true
+
+    # Spring AI 调用模型 API 的重试策略
+    retry:
+      max-attempts: 3
+
+  datasource:
+    pgvector:
+      url: jdbc:postgresql://localhost:5432/rag_demo
+      username: postgres
+      password: ${POSTGRES_PASSWORD}
+    erp:
+      url: jdbc:mysql://localhost:13306/erp?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8&allowPublicKeyRetrieval=true
+      username: ${ERP_DB_USER:root}
+      password: ${ERP_DB_PASSWORD}
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 8080
+
+logging:
+  level:
+    # SQL 参数可能包含用户问题、回答和 Tool 数据；演示默认不输出正文或绑定值。
+    org.springframework.jdbc.core.JdbcTemplate: INFO
+    org.springframework.jdbc.core.StatementCreatorUtils: INFO
+    org.springframework.web: INFO
+    org.springframework.ai: INFO

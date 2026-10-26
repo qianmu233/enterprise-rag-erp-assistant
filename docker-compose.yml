@@ -1,0 +1,69 @@
+# Local demonstration only. The upstream image below is not a build of this
+# repository's current source; use the README JAR build to run downstream changes.
+# Public database ports are intentionally loopback-only. Never reuse demo secrets.
+services:
+  # Spring Boot 应用（使用远程镜像，前后端一体部署）
+  app:
+    image: ly753/spring-ai-rag-demo:latest
+    container_name: rag-demo
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      SPRING_DATASOURCE_PGVECTOR_URL: jdbc:postgresql://pgvector:5432/rag_demo
+      SPRING_DATASOURCE_PGVECTOR_USERNAME: postgres
+      SPRING_DATASOURCE_PGVECTOR_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+      SPRING_DATASOURCE_ERP_URL: jdbc:mysql://mysql:3306/erp?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_ERP_USERNAME: root
+      SPRING_DATASOURCE_ERP_PASSWORD: ${ERP_DB_PASSWORD:?Set ERP_DB_PASSWORD}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-sk-your-deepseek-key}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-sk-your-dashscope-key}
+      GOOGLE_GENAI_API_KEY: ${GOOGLE_GENAI_API_KEY:-your-google-genai-key}
+    depends_on:
+      pgvector:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # PostgreSQL + PgVector（向量数据库，存储文档嵌入向量）
+  pgvector:
+    image: pgvector/pgvector:pg16
+    container_name: pgvector
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_DB: rag_demo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d rag_demo"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  # MySQL（ERP 业务数据 + 对话记录 + 计费）
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-erp
+    ports:
+      - "127.0.0.1:13306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ERP_DB_PASSWORD:?Set ERP_DB_PASSWORD}
+      MYSQL_DATABASE: erp
+      MYSQL_CHARSET: utf8mb4
+    volumes:
+      - mysqldata:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$${MYSQL_ROOT_PASSWORD} --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  mysqldata:

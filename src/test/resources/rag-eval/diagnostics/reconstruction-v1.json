@@ -1,0 +1,4112 @@
+{
+  "schema": "public-fixture-reconstruction-v1",
+  "provenanceSha256": "f587306f43a7fe79d3a19e7b2879cee48ef417940091428c60b25140e585fc22",
+  "warning": "Reconstructed cosine, assumed historical ready status, pseudonymous scope IDs, no actual messages or raw responses; not a new model run.",
+  "chunks": [
+    {
+      "text": "模型调用前会检查租户额度，模型调用后按实际可观测 Token 扣费一次。消息持久化与计费事务相互独立，计费失败不会回滚已经保存的助手消息。\n\n流式回答发生取消时，只按已经观测到的 usage 最多结算一次。引用校验不调用模型，也不会触发额外计费",
+      "metadata": {
+        "chunk_id": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+        "chunk_index": 0,
+        "document_version": 1,
+        "source": "billing-guide.txt",
+        "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2@e8f8c211-avx2-int8",
+        "ent_code": "fixture-tenant-primary",
+        "knowledge_base_id": "fixture-kb-primary",
+        "document_id": "fixture-doc-billing-guide"
+      }
+    },
+    {
+      "text": "。真实 RAG 评测不创建用户会话、不写入聊天历史，并且不经过租户余额扣减。\n\n计费报告保留输入 Token 和输出 Token。Provider 单价缺失时，估算成本必须标记为不可用，不能显示为零成本。",
+      "metadata": {
+        "chunk_id": "324d84db-069f-4785-815d-a759e3886f6e",
+        "chunk_index": 1,
+        "document_version": 1,
+        "source": "billing-guide.txt",
+        "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2@e8f8c211-avx2-int8",
+        "ent_code": "fixture-tenant-primary",
+        "knowledge_base_id": "fixture-kb-primary",
+        "document_id": "fixture-doc-billing-guide"
+      }
+    },
+    {
+      "text": "系统使用两个数据源。MySQL 保存租户、知识库、文档版本、会话和计费数据；PostgreSQL PgVector 保存文档向量。PgVector 使用 384 维向量、HNSW 索引和余弦距离。\n\n部署前必须准备 MySQL、PostgreSQL 的 vector 扩展以及至少一个可用模型密钥。服务默认端口为 8080。4.0.0 发布时前",
+      "metadata": {
+        "chunk_id": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+        "chunk_index": 0,
+        "document_version": 1,
+        "source": "deployment-guide.txt",
+        "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2@e8f8c211-avx2-int8",
+        "ent_code": "fixture-tenant-primary",
+        "knowledge_base_id": "fixture-kb-primary",
+        "document_id": "fixture-doc-deployment-guide"
+      }
+    },
+    {
+      "text": "后端必须同步发布，并递增静态资源缓存版本。\n\n回滚应用时保留新增知识库表和消息引用字段，不执行破坏性 DDL。旧向量缺少稳定文档身份，需要在升级后通过预置加载或文件上传重新导入。",
+      "metadata": {
+        "chunk_id": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+        "chunk_index": 1,
+        "document_version": 1,
+        "source": "deployment-guide.txt",
+        "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2@e8f8c211-avx2-int8",
+        "ent_code": "fixture-tenant-primary",
+        "knowledge_base_id": "fixture-kb-primary",
+        "document_id": "fixture-doc-deployment-guide"
+      }
+    },
+    {
+      "text": "文档导入使用 processing、ready、failed 三阶段。提取和向量写入在 MySQL 本地事务外执行，全部写入成功后才把新版本晋级为 ready，并把上一 ready 版本标记为 superseded。\n\n导入中途失败时，系统按租户、知识库、文档和版本精确清理新版本向量，并把登记版本标记为 failed。上一 ready 版本保持可检",
+      "metadata": {
+        "chunk_id": "f930c536-b475-4227-b126-3c18fd10836f",
+        "chunk_index": 0,
+        "document_version": 1,
+        "source": "operations-guide.txt",
+        "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2@e8f8c211-avx2-int8",
+        "ent_code": "fixture-tenant-primary",
+        "knowledge_base_id": "fixture-kb-primary",
+        "document_id": "fixture-doc-operations-guide"
+      }
+    },
+    {
+      "text": "索。删除稳定文档时会软删除全部版本并尽力清理对应向量。\n\n流式成功事件顺序为零个或多个 delta、可选 citations、可选 chart、最后一个 done。异常或取消不能发布引用、图表或成功 done。客户端在连接关闭前没有收到 done 时，必须丢弃尚未确认的引用和图表。",
+      "metadata": {
+        "chunk_id": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+        "chunk_index": 1,
+        "document_version": 1,
+        "source": "operations-guide.txt",
+        "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2@e8f8c211-avx2-int8",
+        "ent_code": "fixture-tenant-primary",
+        "knowledge_base_id": "fixture-kb-primary",
+        "document_id": "fixture-doc-operations-guide"
+      }
+    },
+    {
+      "text": "Spring AI RAG Demo 提供 auto、data 和 knowledge 三种问答模式。knowledge 模式只使用知识库检索，不注册 ERP 业务工具。知识回答的证据通过方括号编号，例如 [1]。资料不足时，助手应明确说明当前知识库资料不足，不得编造答案。\n\n文档上传支持 PDF、Word、Excel、TXT、HTML 和 RTF。单文件上",
+      "metadata": {
+        "chunk_id": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+        "chunk_index": 0,
+        "document_version": 1,
+        "source": "product-manual.txt",
+        "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2@e8f8c211-avx2-int8",
+        "ent_code": "fixture-tenant-primary",
+        "knowledge_base_id": "fixture-kb-primary",
+        "document_id": "fixture-doc-product-manual"
+      }
+    },
+    {
+      "text": "限为 500MB，整次请求上限为 550MB。提取后的文本最多 500 万字符，受管文档分片会写入稳定文档 ID、版本、分片 ID 和分片顺序。\n\n文档会按 token 边界二次切分，单个分片最多 128 个 WordPiece token。向量写入按批执行，每批最多 100 个分片。",
+      "metadata": {
+        "chunk_id": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+        "chunk_index": 1,
+        "document_version": 1,
+        "source": "product-manual.txt",
+        "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2@e8f8c211-avx2-int8",
+        "ent_code": "fixture-tenant-primary",
+        "knowledge_base_id": "fixture-kb-primary",
+        "document_id": "fixture-doc-product-manual"
+      }
+    },
+    {
+      "text": "所有知识库、文档版本和向量必须按 ent_code 隔离。向量检索还必须同时限定 knowledge_base_id。跨租户知识库统一表现为不存在，不能泄漏对象状态。\n\n受管检索只接受 MySQL 中当前状态为 ready 的文档版本。processing、failed、superseded、deleted 版本和缺少稳定身份的旧格式向量都不能进入模型上",
+      "metadata": {
+        "chunk_id": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+        "chunk_index": 0,
+        "document_version": 1,
+        "source": "security-guide.txt",
+        "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2@e8f8c211-avx2-int8",
+        "ent_code": "fixture-tenant-primary",
+        "knowledge_base_id": "fixture-kb-primary",
+        "document_id": "fixture-doc-security-guide"
+      }
+    },
+    {
+      "text": "下文或引用。\n\n4.0.0 中旧格式向量不能用于检索或引用，必须通过预置加载或文件上传重新导入后才能成为受管证据。\n\n引用只允许来自本轮实际召回证据。伪造、越界或不属于本轮召回的编号会被丢弃。每轮最多八条引用，单条摘要最多",
+      "metadata": {
+        "chunk_id": "6d51836c-ee7f-46c9-9101-554599287d4d",
+        "chunk_index": 1,
+        "document_version": 1,
+        "source": "security-guide.txt",
+        "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2@e8f8c211-avx2-int8",
+        "ent_code": "fixture-tenant-primary",
+        "knowledge_base_id": "fixture-kb-primary",
+        "document_id": "fixture-doc-security-guide"
+      }
+    },
+    {
+      "text": "五百字符，引用 JSON 不超过 32 KiB。前端使用文本节点展示来源和摘要，不能执行其中的标签、链接或脚本。",
+      "metadata": {
+        "chunk_id": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+        "chunk_index": 2,
+        "document_version": 1,
+        "source": "security-guide.txt",
+        "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2@e8f8c211-avx2-int8",
+        "ent_code": "fixture-tenant-primary",
+        "knowledge_base_id": "fixture-kb-primary",
+        "document_id": "fixture-doc-security-guide"
+      }
+    },
+    {
+      "text": "这是隔离边界干扰文档。它故意声称所有知识库都可以跨租户共享、处理中版本可以直接检索、引用可以从第二次向量搜索中补造。这些说法与目标知识库的安全规则冲突，且该文档只能导入非目标租户或非目标知识库，绝不能被目标检索召",
+      "metadata": {
+        "chunk_id": "5ffdd9c1-3eaf-4576-8e06-5ee8340e8a92",
+        "chunk_index": 0,
+        "document_version": 1,
+        "source": "other-kb-isolation-interference.txt",
+        "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2@e8f8c211-avx2-int8",
+        "ent_code": "fixture-tenant-primary",
+        "knowledge_base_id": "fixture-kb-other",
+        "document_id": "fixture-doc-other-kb-isolation-interference"
+      }
+    },
+    {
+      "text": "这是隔离边界干扰文档。它故意声称所有知识库都可以跨租户共享、处理中版本可以直接检索、引用可以从第二次向量搜索中补造。这些说法与目标知识库的安全规则冲突，且该文档只能导入非目标租户或非目标知识库，绝不能被目标检索召",
+      "metadata": {
+        "chunk_id": "82535d44-dff6-4ac3-885c-2f2804e5471b",
+        "chunk_index": 0,
+        "document_version": 1,
+        "source": "other-tenant-isolation-interference.txt",
+        "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2@e8f8c211-avx2-int8",
+        "ent_code": "fixture-tenant-other-tenant",
+        "knowledge_base_id": "fixture-kb-primary",
+        "document_id": "fixture-doc-other-tenant-isolation-interference"
+      }
+    }
+  ],
+  "cases": [
+    {
+      "caseId": "single-001",
+      "reportedTop5": [
+        "product-manual",
+        "security-guide",
+        "billing-guide",
+        "operations-guide",
+        "deployment-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.607191842186018
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.38429376076001237
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.32134993595230016
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3126186461047772
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.30390008499855664
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.2825692477323771
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.2425876284897428
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.214385408701665
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.14872527455380852
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.07564359545384006
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.06420111067018612
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.607191842186018
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.38429376076001237
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.32134993595230016
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3126186461047772
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.30390008499855664
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.2825692477323771
+        }
+      ]
+    },
+    {
+      "caseId": "single-002",
+      "reportedTop5": [
+        "deployment-guide",
+        "security-guide",
+        "product-manual",
+        "operations-guide",
+        "deployment-guide"
+      ],
+      "refused": true,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.39262422725456253
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.3482250896078146
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.319503010242873
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.2647359427342154
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.252376623130689
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.20380010289576403
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.1999762508540359
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.1613643182515223
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.14673865203243888
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.11460824858864653
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.09034670627920031
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.39262422725456253
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.3482250896078146
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.319503010242873
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.2647359427342154
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.252376623130689
+        }
+      ]
+    },
+    {
+      "caseId": "single-003",
+      "reportedTop5": [
+        "product-manual",
+        "deployment-guide",
+        "deployment-guide",
+        "security-guide",
+        "security-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.6653600782602584
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.360918507650429
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.3395237811016283
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.32740794087060004
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.29519489049282627
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.24264014118021396
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.21869204150725333
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.21206409661973233
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.19677716939872222
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.16911364529719086
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.1141836257525929
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.6653600782602584
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.360918507650429
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.3395237811016283
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.32740794087060004
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.29519489049282627
+        }
+      ]
+    },
+    {
+      "caseId": "single-004",
+      "reportedTop5": [
+        "product-manual",
+        "deployment-guide",
+        "security-guide",
+        "deployment-guide",
+        "billing-guide"
+      ],
+      "refused": true,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.6178026174297042
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.4047359341633231
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.3247072908962032
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.32351106544302155
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.3131557505346952
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.3091281911536618
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.2895425496942689
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.25938774656400815
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.2517406975871637
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.23390338837166347
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.19165299061041105
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.6178026174297042
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.4047359341633231
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.3247072908962032
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.32351106544302155
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.3131557505346952
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.3091281911536618
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.2895425496942689
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.25938774656400815
+        }
+      ]
+    },
+    {
+      "caseId": "single-005",
+      "reportedTop5": [
+        "product-manual",
+        "security-guide",
+        "security-guide",
+        "operations-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.627427994865242
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.4534534453864914
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.4165026755953131
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.25379543562426715
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.22522930038655908
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.19927611582070773
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.1625168804324414
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.1588350558916871
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.11784155537529309
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.1057142266087511
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.10546961952090292
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.627427994865242
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.4534534453864914
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.4165026755953131
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.25379543562426715
+        }
+      ]
+    },
+    {
+      "caseId": "single-006",
+      "reportedTop5": [
+        "product-manual",
+        "security-guide",
+        "security-guide",
+        "billing-guide",
+        "operations-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.6779076286095979
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.39878520986516547
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.37752883259185993
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.32138621205346407
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.2598060057802435
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.22670667159484587
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.21714222222352994
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.16928625027670233
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.16479098502732684
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.16423419047460805
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.15011672072054819
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.6779076286095979
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.39878520986516547
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.37752883259185993
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.32138621205346407
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.2598060057802435
+        }
+      ]
+    },
+    {
+      "caseId": "single-007",
+      "reportedTop5": [
+        "product-manual",
+        "security-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.5623350896053205
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.29093035488346347
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.24883449209720476
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.23193872444761168
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.23058377422140539
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.19047225452460373
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.18655169045749073
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.12636028249139425
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.12300729776257838
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.10393623289732491
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.06112831802494431
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.5623350896053205
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.29093035488346347
+        }
+      ]
+    },
+    {
+      "caseId": "single-008",
+      "reportedTop5": [
+        "deployment-guide",
+        "security-guide",
+        "deployment-guide",
+        "billing-guide",
+        "product-manual"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.5115671996179205
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.44054185536877244
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.4198513806124474
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.35298514544191817
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.3336619820144321
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3335171722733425
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.25753455786505625
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.2068294745497221
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.20224720343843364
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.12281868992561293
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.0583611895568245
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.5115671996179205
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.44054185536877244
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.4198513806124474
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.35298514544191817
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.3336619820144321
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3335171722733425
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.25753455786505625
+        }
+      ]
+    },
+    {
+      "caseId": "single-009",
+      "reportedTop5": [
+        "deployment-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.4512469485097806
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.19220340166234307
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.09830841082700464
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.09147828967519693
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.08108383786573377
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.08098316882784708
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.05834317085452624
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.04525702430450607
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.04442306057844317
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.039969779776481223
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.031234916434343642
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.4512469485097806
+        }
+      ]
+    },
+    {
+      "caseId": "single-010",
+      "reportedTop5": [
+        "deployment-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.5180921633380194
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.2025441639575019
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.20243686163423674
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.16359768614873885
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.16249265084893486
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.15098444137783798
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.11860787573585779
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.1062743333563818
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.08471372227521898
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.05759747303566591
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": -0.018104988787105314
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.5180921633380194
+        }
+      ]
+    },
+    {
+      "caseId": "single-011",
+      "reportedTop5": [
+        "deployment-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.3235680199239862
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.19470744221458508
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.15962734607787082
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.15831809814716247
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.14281282275648052
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.13583611683413624
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.13458791134818648
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.1272597568659989
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.1171093011043181
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": -0.06288939389761636
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": -0.10192656623773662
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.3235680199239862
+        }
+      ]
+    },
+    {
+      "caseId": "single-012",
+      "reportedTop5": [
+        "deployment-guide",
+        "operations-guide",
+        "billing-guide",
+        "security-guide",
+        "product-manual"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.4498886560733713
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.37040201067456024
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.35820855775167965
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.32944174346158045
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.2724384300496275
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.2705625272237067
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.2563859023211994
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.20763145667411784
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.20639219674051093
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.10784736236259952
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.10758772810700738
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.4498886560733713
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.37040201067456024
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.35820855775167965
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.32944174346158045
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.2724384300496275
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.2705625272237067
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.2563859023211994
+        }
+      ]
+    },
+    {
+      "caseId": "single-013",
+      "reportedTop5": [
+        "billing-guide",
+        "product-manual",
+        "operations-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.600928939375343
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.35455840535430366
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.34270324265015967
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.21764589366362672
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.21605107310589627
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.2023475558682295
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.18491057837819644
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.11945912376102907
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.110751015902328
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.06231585457889261
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.016391324060088648
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.600928939375343
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.35455840535430366
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.34270324265015967
+        }
+      ]
+    },
+    {
+      "caseId": "single-014",
+      "reportedTop5": [
+        "billing-guide",
+        "billing-guide",
+        "operations-guide",
+        "operations-guide",
+        "security-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.5327676528340007
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.4256921709300884
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.34266942914695603
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.33376492987910994
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.3243624569291176
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.2998009243601338
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.22002912235204758
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.21775202363500545
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.1881763588462193
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.15565962872793598
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.05780797558355726
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.5327676528340007
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.4256921709300884
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.34266942914695603
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.33376492987910994
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.3243624569291176
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.2998009243601338
+        }
+      ]
+    },
+    {
+      "caseId": "single-015",
+      "reportedTop5": [
+        "billing-guide",
+        "billing-guide",
+        "deployment-guide",
+        "operations-guide",
+        "operations-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.5184358672045681
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.45605454192182576
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.3503992886480623
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.2631721162859161
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.25686346653843706
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.245011644049772
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.21069719330784567
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.201624003710205
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.16461565306510278
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.0940400929114138
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.02900005387310061
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.5184358672045681
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.45605454192182576
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.3503992886480623
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.2631721162859161
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.25686346653843706
+        }
+      ]
+    },
+    {
+      "caseId": "single-016",
+      "reportedTop5": [
+        "security-guide",
+        "security-guide",
+        "deployment-guide",
+        "operations-guide",
+        "operations-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.573070516712406
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.49181565534348204
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.44589836915026254
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.4452827465418986
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.38331819954590385
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.3432094290745941
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.33584403565635995
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.3075639098683607
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.2896847172926673
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.26797858262884794
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.2088409833922613
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.573070516712406
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.49181565534348204
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.44589836915026254
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.4452827465418986
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.38331819954590385
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.3432094290745941
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.33584403565635995
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.3075639098683607
+        }
+      ]
+    },
+    {
+      "caseId": "single-017",
+      "reportedTop5": [
+        "security-guide",
+        "product-manual",
+        "operations-guide",
+        "billing-guide",
+        "security-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.5461593970702047
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.4899233581898093
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.42721679769432225
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.35843878566107945
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.29124355066661733
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.268076448687871
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.25993004359804445
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.23557085669556263
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.23522410308361816
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.12743385454288178
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.06971947024648749
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.5461593970702047
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.4899233581898093
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.42721679769432225
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.35843878566107945
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.29124355066661733
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.268076448687871
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.25993004359804445
+        }
+      ]
+    },
+    {
+      "caseId": "single-018",
+      "reportedTop5": [
+        "security-guide",
+        "product-manual",
+        "security-guide",
+        "operations-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.5327399034641305
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.47873549482612676
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.3533878872805467
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.31156073927270345
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.1662257377150216
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.15092850802575983
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.13944562163470034
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.11954527738237897
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.11653734532994449
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.09295551913641786
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.05873248281601178
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.5327399034641305
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.47873549482612676
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.3533878872805467
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.31156073927270345
+        }
+      ]
+    },
+    {
+      "caseId": "single-019",
+      "reportedTop5": [
+        "operations-guide",
+        "security-guide",
+        "operations-guide",
+        "security-guide",
+        "deployment-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.5941197181772386
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.535877733853092
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.46828810293581447
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.43744409151712194
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.43261098157413247
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.3550500763333066
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.29950382277904536
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.25932936578121935
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.2575098043144037
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.25397779337292686
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.13675731462809257
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.5941197181772386
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.535877733853092
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.46828810293581447
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.43744409151712194
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.43261098157413247
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.3550500763333066
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.29950382277904536
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.25932936578121935
+        }
+      ]
+    },
+    {
+      "caseId": "single-020",
+      "reportedTop5": [
+        "operations-guide",
+        "operations-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.4217161289570089
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.26046201762831656
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.24273104424895112
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.18429400223826262
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.11336489968069388
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.0803803731951462
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.0722459374946164
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.04988358251142493
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.028419780120600098
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.0187772542527118
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": -0.06722431161036593
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.4217161289570089
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.26046201762831656
+        }
+      ]
+    },
+    {
+      "caseId": "multi-001",
+      "reportedTop5": [
+        "operations-guide",
+        "deployment-guide",
+        "security-guide",
+        "security-guide",
+        "operations-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.4321981924770922
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.388089204502924
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.3679928558742359
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.35921561782635303
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.35486101361873096
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.2853461461951236
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.2684536289273902
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.2000259895636972
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.14987224603812305
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.06781997396052372
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.024642138055073863
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.4321981924770922
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.388089204502924
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.3679928558742359
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.35921561782635303
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.35486101361873096
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.2853461461951236
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.2684536289273902
+        }
+      ]
+    },
+    {
+      "caseId": "multi-002",
+      "reportedTop5": [
+        "product-manual",
+        "security-guide",
+        "operations-guide",
+        "security-guide",
+        "billing-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.43450770598762184
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.36593146592241904
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.3295511565455665
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.3290611130048388
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.3150072720363467
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.3059885583025849
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.27151221920833274
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.2527992233604772
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.24466264254603526
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.20245179800081894
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.1594558488265518
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.43450770598762184
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.36593146592241904
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.3295511565455665
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.3290611130048388
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.3150072720363467
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.3059885583025849
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.27151221920833274
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.2527992233604772
+        }
+      ]
+    },
+    {
+      "caseId": "multi-003",
+      "reportedTop5": [
+        "billing-guide",
+        "operations-guide",
+        "billing-guide",
+        "deployment-guide"
+      ],
+      "refused": true,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.47313145429283526
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3105467104223851
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.2721095513039445
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.25151163995820375
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.23398208615330363
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.22929668414928747
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.21525368144771873
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.21389283682477805
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.15977003412464014
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.07245036231897282
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": -0.010476247444206763
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.47313145429283526
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3105467104223851
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.2721095513039445
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.25151163995820375
+        }
+      ]
+    },
+    {
+      "caseId": "multi-004",
+      "reportedTop5": [
+        "security-guide",
+        "operations-guide",
+        "billing-guide",
+        "operations-guide",
+        "security-guide"
+      ],
+      "refused": true,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.6016199442541692
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.4175479249246651
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.3357903015994943
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3303106769802235
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.2944054567166793
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.29298833743759317
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.2752266689054643
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.26765891821113996
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.24587614965148558
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.1670587518656936
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.10112186570532544
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.6016199442541692
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.4175479249246651
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.3357903015994943
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3303106769802235
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.2944054567166793
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.29298833743759317
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.2752266689054643
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.26765891821113996
+        }
+      ]
+    },
+    {
+      "caseId": "multi-005",
+      "reportedTop5": [
+        "operations-guide",
+        "billing-guide",
+        "security-guide",
+        "billing-guide",
+        "operations-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.5534079060419242
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.5451885216469178
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.506117028271472
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.42927240547905443
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3867406505325984
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.3390038201923041
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.2583604590348162
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.21022654932219234
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.19078594137045882
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.15411446195283784
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.10255530805253273
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.5534079060419242
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.5451885216469178
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.506117028271472
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.42927240547905443
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3867406505325984
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.3390038201923041
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.2583604590348162
+        }
+      ]
+    },
+    {
+      "caseId": "multi-006",
+      "reportedTop5": [
+        "security-guide",
+        "operations-guide",
+        "billing-guide",
+        "product-manual",
+        "security-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.5980417194364553
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.4120865973944879
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.34809036801136833
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.3155251980979034
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.2860838803634703
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.273659883270532
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.2689599580791688
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.24126444424352025
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.2285904702897086
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.19780872446564118
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.1937973384035457
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.5980417194364553
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.4120865973944879
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.34809036801136833
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.3155251980979034
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.2860838803634703
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.273659883270532
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.2689599580791688
+        }
+      ]
+    },
+    {
+      "caseId": "multi-007",
+      "reportedTop5": [
+        "deployment-guide",
+        "product-manual",
+        "billing-guide",
+        "security-guide",
+        "deployment-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.44369090288513663
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.4249842678085779
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.40834299193648727
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.3912452268941599
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.3675841607466633
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.35248998333445264
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.256404915566268
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.2227396752082425
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.22237547344586192
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.11983532082874424
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.058407633131824586
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.44369090288513663
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.4249842678085779
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.40834299193648727
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.3912452268941599
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.3675841607466633
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.35248998333445264
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.256404915566268
+        }
+      ]
+    },
+    {
+      "caseId": "multi-008",
+      "reportedTop5": [
+        "security-guide",
+        "billing-guide",
+        "operations-guide",
+        "billing-guide",
+        "deployment-guide"
+      ],
+      "refused": true,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.6675786170277512
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.4939081412369738
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.4771976732520133
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.4114687565763194
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.38796539801246316
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3178010749270968
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.26479196749193606
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.2605428788605714
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.21155630714071733
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.16782069684964174
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.09934657403247946
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.6675786170277512
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.4939081412369738
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.4771976732520133
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.4114687565763194
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.38796539801246316
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3178010749270968
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.26479196749193606
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.2605428788605714
+        }
+      ]
+    },
+    {
+      "caseId": "multi-009",
+      "reportedTop5": [
+        "deployment-guide",
+        "operations-guide",
+        "security-guide",
+        "operations-guide",
+        "deployment-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.6364439077811122
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.5497635804629657
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.3397637217634194
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.32825412470589677
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.32343185700737426
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.2729958633263766
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.21836045597799272
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.16148501655849493
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.09858555882579528
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.047844615162304545
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": -0.018274743149030118
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.6364439077811122
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.5497635804629657
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.3397637217634194
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.32825412470589677
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.32343185700737426
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.2729958633263766
+        }
+      ]
+    },
+    {
+      "caseId": "multi-010",
+      "reportedTop5": [
+        "product-manual",
+        "security-guide",
+        "billing-guide",
+        "operations-guide",
+        "operations-guide"
+      ],
+      "refused": true,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.43609613815415127
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.41161009183561964
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.3947803701289561
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.3788232088693603
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3132338207767816
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.3048576948095639
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.2991871039774451
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.26382735211447417
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.206191379235363
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.1548987863582743
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.14088927402127663
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.43609613815415127
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.41161009183561964
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.3947803701289561
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.3788232088693603
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3132338207767816
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.3048576948095639
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.2991871039774451
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.26382735211447417
+        }
+      ]
+    },
+    {
+      "caseId": "paraphrase-001",
+      "reportedTop5": [
+        "product-manual",
+        "security-guide"
+      ],
+      "refused": true,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.46022862624436434
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.3109829118500992
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.1980221696408418
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.1678086089327427
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.1552304151255392
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.09398519954215925
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.08126368518010249
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.07631059263303323
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.06069388803566689
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.0477570998637886
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.04333984465496967
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.46022862624436434
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.3109829118500992
+        }
+      ]
+    },
+    {
+      "caseId": "paraphrase-002",
+      "reportedTop5": [
+        "product-manual"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.381042015491781
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.19731149760060124
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.1618275191138646
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.1491491780556016
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.13094454864878954
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.12773681056790573
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.11324542009761114
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.09838047656859844
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.07014170208756734
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.04404200949790097
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.009533108851457618
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.381042015491781
+        }
+      ]
+    },
+    {
+      "caseId": "paraphrase-003",
+      "reportedTop5": [
+        "product-manual"
+      ],
+      "refused": true,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.39942393304687684
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.17429620828363182
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.15193454103092588
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.14572934349372993
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.1094386333446882
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.07116516010384774
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.06929331436099197
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.06379400116025012
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.053541710425049106
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.04133959825562766
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.00719392139438677
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.39942393304687684
+        }
+      ]
+    },
+    {
+      "caseId": "paraphrase-004",
+      "reportedTop5": [
+        "operations-guide",
+        "operations-guide",
+        "security-guide",
+        "deployment-guide",
+        "billing-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.45059542263956937
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.4502788708610362
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.4225833310284086
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.42083220358117956
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.3442702965833655
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.31398409724137955
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.1988970654346417
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.1585097930067592
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.09392478775227237
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.09199475968028314
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": -0.010184907662317142
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.45059542263956937
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.4502788708610362
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.4225833310284086
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.42083220358117956
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.3442702965833655
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.31398409724137955
+        }
+      ]
+    },
+    {
+      "caseId": "paraphrase-005",
+      "reportedTop5": [
+        "billing-guide",
+        "operations-guide",
+        "deployment-guide",
+        "billing-guide",
+        "security-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.5780563963546597
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.5098863887572165
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.47281628380509005
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.42396162863048836
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.3999644002182084
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.38318456982426063
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.26982264121982774
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.22920122458787154
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.2177026445292386
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.16241125032731182
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.06223581076491881
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.5780563963546597
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.5098863887572165
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.47281628380509005
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.42396162863048836
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.3999644002182084
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.38318456982426063
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.26982264121982774
+        }
+      ]
+    },
+    {
+      "caseId": "paraphrase-006",
+      "reportedTop5": [
+        "billing-guide",
+        "billing-guide"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.5334271370609662
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.38347084431836703
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.22588598054762782
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.22334856786559723
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.20560578924179634
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.16432261179385654
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.1642066580302904
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.10627809777028967
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.09995221736689103
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.06369972537821662
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.05519534789614298
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.5334271370609662
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.38347084431836703
+        }
+      ]
+    },
+    {
+      "caseId": "paraphrase-007",
+      "reportedTop5": [
+        "security-guide",
+        "deployment-guide",
+        "operations-guide",
+        "product-manual",
+        "operations-guide"
+      ],
+      "refused": true,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.4512341024650296
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.4274785328761726
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3631018145170428
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.3202060862195025
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.2862911659700792
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.28374186495892445
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.27670285449019155
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.23342874220557522
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.23083172622255657
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.2217383801299866
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.18729266740475664
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.4512341024650296
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.4274785328761726
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3631018145170428
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.3202060862195025
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.2862911659700792
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.28374186495892445
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.27670285449019155
+        }
+      ]
+    },
+    {
+      "caseId": "paraphrase-008",
+      "reportedTop5": [
+        "billing-guide"
+      ],
+      "refused": true,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.31583268071631115
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.21814347313668433
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.2075986235223754
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.1864569683519146
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.18567946313525788
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.17791054014956698
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.165626775252139
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.12804590327300058
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.11491241189415578
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.10701779502540058
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.03509449175994804
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.31583268071631115
+        }
+      ]
+    },
+    {
+      "caseId": "paraphrase-009",
+      "reportedTop5": [
+        "operations-guide",
+        "billing-guide",
+        "security-guide",
+        "operations-guide",
+        "deployment-guide"
+      ],
+      "refused": true,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.3878349737273408
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.3483597962472957
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.32707752722465633
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3033704676248522
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.2556527588030454
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.23820698286843586
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.20241983028024962
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.18475750453330056
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.14271455674089054
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.08960991357278233
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.0895048064682429
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.3878349737273408
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.3483597962472957
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.32707752722465633
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3033704676248522
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.2556527588030454
+        }
+      ]
+    },
+    {
+      "caseId": "paraphrase-010",
+      "reportedTop5": [
+        "security-guide",
+        "deployment-guide",
+        "operations-guide",
+        "operations-guide",
+        "product-manual"
+      ],
+      "refused": true,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.4923169528105171
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.47186496048776
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.36522438035670973
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.35465979228868444
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.34433445088220116
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.34373290082969155
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.2837743880605722
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.28222613393061224
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.23964424797020603
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.23431581859772746
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.12950899407028907
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.4923169528105171
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.47186496048776
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.36522438035670973
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.35465979228868444
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.34433445088220116
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.34373290082969155
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.2837743880605722
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.28222613393061224
+        }
+      ]
+    },
+    {
+      "caseId": "no-answer-001",
+      "reportedTop5": [
+        "billing-guide",
+        "product-manual",
+        "deployment-guide",
+        "operations-guide",
+        "deployment-guide"
+      ],
+      "refused": true,
+      "answerable": false,
+      "allScores": [
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.4435336640373464
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.3567656607075399
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.33714633501160035
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3243956426420377
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.3089680433806976
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.2966074893848543
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.24128843031412703
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.24017733698704513
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.23513724725027563
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.217831803011197
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.07845497424204957
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.4435336640373464
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.3567656607075399
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.33714633501160035
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.3243956426420377
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.3089680433806976
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.2966074893848543
+        }
+      ]
+    },
+    {
+      "caseId": "no-answer-002",
+      "reportedTop5": [
+        "product-manual",
+        "billing-guide",
+        "security-guide",
+        "product-manual",
+        "billing-guide"
+      ],
+      "refused": true,
+      "answerable": false,
+      "allScores": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.4144797728078734
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.3618534459449451
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.31124169278277436
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.2883329125493363
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.2795215594025917
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.26287236953358406
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.14177511518440472
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.14011849394578618
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.11926420877285408
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.08436294843188503
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.07710238824584034
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.4144797728078734
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.3618534459449451
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.31124169278277436
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.2883329125493363
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.2795215594025917
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.26287236953358406
+        }
+      ]
+    },
+    {
+      "caseId": "no-answer-003",
+      "reportedTop5": [
+        "deployment-guide",
+        "operations-guide"
+      ],
+      "refused": true,
+      "answerable": false,
+      "allScores": [
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.2682971076996004
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.2620667076396284
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.21323864445165064
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.21000082119416547
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.2027831778739875
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.14758245168881864
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.1346592722226004
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.09448115338651733
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.06846047956841902
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.04624048311004849
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": -0.02131812558064334
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.2682971076996004
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.2620667076396284
+        }
+      ]
+    },
+    {
+      "caseId": "no-answer-004",
+      "reportedTop5": [],
+      "refused": true,
+      "answerable": false,
+      "allScores": [
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.21513415303890837
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.20077617197190514
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.15266721515478254
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.14760802712972915
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.13592573878140335
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.10473122815288301
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.08220074702763662
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.05373171720307014
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.04104311524832012
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.01683659949527986
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.005460633837304516
+        }
+      ],
+      "reconstructedContext": []
+    },
+    {
+      "caseId": "no-answer-005",
+      "reportedTop5": [
+        "deployment-guide"
+      ],
+      "refused": true,
+      "answerable": false,
+      "allScores": [
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.33501767858317194
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.16475476850206353
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.14550143834924498
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.14439287878513457
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.10692871079829827
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.09068456672425372
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.08856780612361029
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.08045693792573366
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.018131841510976476
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": -0.002083869177683481
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": -0.05105805325421462
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.33501767858317194
+        }
+      ]
+    },
+    {
+      "caseId": "isolation-001",
+      "reportedTop5": [
+        "billing-guide",
+        "security-guide",
+        "billing-guide",
+        "deployment-guide",
+        "deployment-guide"
+      ],
+      "refused": true,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.4559608392733925
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.4011109617459412
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.3756889353825069
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.37062656148168627
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.2693342695818707
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.26787647663503983
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.2586673719375748
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.21253337835072478
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.1987431657040811
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.1240602627378428
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": -0.03800400790063854
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.4559608392733925
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.4011109617459412
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.3756889353825069
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.37062656148168627
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.2693342695818707
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.26787647663503983
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.2586673719375748
+        }
+      ]
+    },
+    {
+      "caseId": "isolation-002",
+      "reportedTop5": [
+        "security-guide",
+        "product-manual",
+        "deployment-guide",
+        "operations-guide",
+        "security-guide"
+      ],
+      "refused": true,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.389660729066041
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.3835899157809046
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.31782508309005403
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.309878426335574
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.3063950917533953
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.2489850709133238
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.2332353529049861
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.21999767959290575
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.16784608976504026
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.16280596658594113
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.16225401969296363
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.389660729066041
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.3835899157809046
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.31782508309005403
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.309878426335574
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.3063950917533953
+        }
+      ]
+    },
+    {
+      "caseId": "isolation-003",
+      "reportedTop5": [
+        "billing-guide",
+        "security-guide",
+        "operations-guide",
+        "operations-guide",
+        "security-guide"
+      ],
+      "refused": true,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.49184020214800955
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.41358791004882106
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.39084206971991226
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.35256275111704893
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.28722208677422056
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.2836259263066072
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.24923249966676495
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.22240041063156557
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.2142813454966112
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.1012927668538699
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.0766754997308544
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.49184020214800955
+        },
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.41358791004882106
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.39084206971991226
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.35256275111704893
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.28722208677422056
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.2836259263066072
+        }
+      ]
+    },
+    {
+      "caseId": "isolation-004",
+      "reportedTop5": [
+        "security-guide",
+        "product-manual"
+      ],
+      "refused": true,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.3918841614739585
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.2943951814081263
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.24974544417236266
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.24301523517368825
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.2346245426595244
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.21682935647151616
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.2051702726980998
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.18294776412424296
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.13953161675330425
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.13908049505121506
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.10717295661105575
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.3918841614739585
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.2943951814081263
+        }
+      ]
+    },
+    {
+      "caseId": "isolation-005",
+      "reportedTop5": [
+        "security-guide",
+        "deployment-guide",
+        "operations-guide",
+        "security-guide",
+        "product-manual"
+      ],
+      "refused": false,
+      "answerable": true,
+      "allScores": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.7881727201897826
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.42763832097640114
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.40473033190388835
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.3690522802206312
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.3483073573200721
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.3437443241046232
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.2870386855514383
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.28311692510116204
+        },
+        {
+          "chunkId": "324d84db-069f-4785-815d-a759e3886f6e",
+          "cosine": 0.28130815655455016
+        },
+        {
+          "chunkId": "a1dd380e-d3b9-42fe-bda1-b6e09c145681",
+          "cosine": 0.2766580973351311
+        },
+        {
+          "chunkId": "446bbf4c-7ac4-45f3-a84e-54c27f27ffac",
+          "cosine": 0.08506252249009065
+        }
+      ],
+      "reconstructedContext": [
+        {
+          "chunkId": "6d51836c-ee7f-46c9-9101-554599287d4d",
+          "cosine": 0.7881727201897826
+        },
+        {
+          "chunkId": "973fc27f-23c8-4346-9d00-f235dc66a6c3",
+          "cosine": 0.42763832097640114
+        },
+        {
+          "chunkId": "f930c536-b475-4227-b126-3c18fd10836f",
+          "cosine": 0.40473033190388835
+        },
+        {
+          "chunkId": "f981d498-3ce7-44ab-a027-ea007ec200d9",
+          "cosine": 0.3690522802206312
+        },
+        {
+          "chunkId": "7f24e910-f0ef-40d1-9312-0d8fd2b907f2",
+          "cosine": 0.3483073573200721
+        },
+        {
+          "chunkId": "1d8cfd7a-8a00-4c78-9213-e34a6b6d7aed",
+          "cosine": 0.3437443241046232
+        },
+        {
+          "chunkId": "47be7b14-4592-4b4b-821b-9566fde01b1f",
+          "cosine": 0.2870386855514383
+        },
+        {
+          "chunkId": "891f053d-750e-4e7e-b62e-e410d0fb27a2",
+          "cosine": 0.28311692510116204
+        }
+      ]
+    }
+  ]
+}

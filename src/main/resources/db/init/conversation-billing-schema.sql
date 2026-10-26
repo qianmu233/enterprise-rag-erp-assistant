@@ -1,0 +1,300 @@
+-- PUBLIC SYNTHETIC FIXTURE, generated 2026-10-26. Not real enterprise data.
+-- Contacts are non-person identifiers; phone values are non-dialable labels.
+CREATE TABLE IF NOT EXISTS a_tenant (
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
+    ent_code    VARCHAR(32)   NOT NULL COMMENT '租户编码（全局唯一）',
+    ent_name    VARCHAR(100)  NOT NULL COMMENT '企业名称',
+    contact     VARCHAR(50)            COMMENT '联系人',
+    phone       VARCHAR(20)            COMMENT '联系电话',
+    status      VARCHAR(10)   NOT NULL DEFAULT 'active' COMMENT '状态: active/suspended/closed',
+    created_at  DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at  DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_ent_code (ent_code)
+) COMMENT '租户表';
+
+CREATE TABLE IF NOT EXISTS a_tenant_user (
+    id           BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id      VARCHAR(32)   NOT NULL COMMENT '用户ID（租户内唯一）',
+    ent_code     VARCHAR(32)   NOT NULL COMMENT '所属租户编码',
+    username     VARCHAR(50)   NOT NULL COMMENT '登录账号',
+    display_name VARCHAR(50)            COMMENT '显示名称',
+    role         VARCHAR(20)   NOT NULL DEFAULT 'user' COMMENT '角色: admin/user/viewer',
+    status       VARCHAR(10)   NOT NULL DEFAULT 'active' COMMENT '状态: active/disabled',
+    created_at   DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at   DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_ent_user (ent_code, user_id),
+    INDEX idx_ent_code (ent_code)
+) COMMENT '租户用户表';
+
+CREATE TABLE IF NOT EXISTS a_chat_conversation (
+    id               BIGINT AUTO_INCREMENT PRIMARY KEY,
+    conversation_id  VARCHAR(36)   NOT NULL COMMENT '会话ID（UUID）',
+    ent_code         VARCHAR(32)   NOT NULL COMMENT '租户编码',
+    user_id          VARCHAR(32)   NOT NULL COMMENT '用户ID',
+    title            VARCHAR(200)           COMMENT '会话标题（取首条消息摘要）',
+    mode             VARCHAR(20)   NOT NULL DEFAULT 'auto' COMMENT '问答模式: auto/data/knowledge',
+    message_count    INT           NOT NULL DEFAULT 0 COMMENT '消息总数',
+    total_tokens     INT           NOT NULL DEFAULT 0 COMMENT '会话累计 token 数',
+    status           VARCHAR(10)   NOT NULL DEFAULT 'active' COMMENT '状态: active/archived/deleted',
+    created_at       DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at       DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_conversation_id (conversation_id),
+    INDEX idx_ent_user (ent_code, user_id),
+    INDEX idx_created_at (created_at)
+) COMMENT '对话会话表';
+
+CREATE TABLE IF NOT EXISTS a_chat_message (
+    id                  BIGINT AUTO_INCREMENT PRIMARY KEY,
+    message_id          VARCHAR(36)   NOT NULL COMMENT '消息ID（UUID）',
+    conversation_id     VARCHAR(36)   NOT NULL COMMENT '所属会话ID',
+    ent_code            VARCHAR(32)   NOT NULL COMMENT '租户编码',
+    user_id             VARCHAR(32)   NOT NULL COMMENT '用户ID',
+    role                VARCHAR(15)   NOT NULL COMMENT '角色: user/assistant/system',
+    content             TEXT                   COMMENT '消息内容',
+    mode                VARCHAR(20)            COMMENT '问答模式: auto/data/knowledge',
+    knowledge_base_id   VARCHAR(36)            COMMENT '知识问答实际使用的知识库ID',
+    model               VARCHAR(50)            COMMENT '使用的模型名称（如 deepseek-chat）',
+    prompt_tokens       INT           NOT NULL DEFAULT 0 COMMENT '提示词 token 数',
+    completion_tokens   INT           NOT NULL DEFAULT 0 COMMENT '生成回答 token 数',
+    total_tokens        INT           NOT NULL DEFAULT 0 COMMENT '总 token 数',
+    tool_calls          TEXT                   COMMENT '工具调用记录（JSON 数组）',
+    tool_calls_count    INT           NOT NULL DEFAULT 0 COMMENT '工具调用次数',
+    chart_spec          TEXT                   COMMENT '助手图表数据（ChartSpec JSON，最大60KiB）',
+    rag_doc_count       INT           NOT NULL DEFAULT 0 COMMENT 'RAG 检索文档数',
+    rag_citations       JSON                   COMMENT 'RAG 引用快照（最大32KiB）',
+    duration_ms         INT                    COMMENT '响应耗时（毫秒）',
+    status              VARCHAR(10)   NOT NULL DEFAULT 'success' COMMENT '状态: success/error/timeout',
+    error_message       VARCHAR(500)           COMMENT '错误信息（失败时记录）',
+    created_at          DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_message_id (message_id),
+    INDEX idx_conversation_id (conversation_id),
+    INDEX idx_ent_user (ent_code, user_id),
+    INDEX idx_created_at (created_at)
+) COMMENT '对话消息表';
+
+CREATE TABLE IF NOT EXISTS a_knowledge_base (
+    id                  BIGINT AUTO_INCREMENT PRIMARY KEY,
+    knowledge_base_id   VARCHAR(36)   NOT NULL COMMENT '知识库ID（UUID）',
+    ent_code            VARCHAR(32)   NOT NULL COMMENT '租户编码',
+    name                VARCHAR(100)  NOT NULL COMMENT '知识库名称',
+    description         VARCHAR(500)           COMMENT '知识库说明',
+    status              VARCHAR(10)   NOT NULL DEFAULT 'active' COMMENT '状态: active/inactive/deleted',
+    is_default          TINYINT(1)    NOT NULL DEFAULT 0 COMMENT '是否默认知识库',
+    created_by          VARCHAR(32)            COMMENT '创建人用户ID',
+    created_at          DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at          DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_ent_knowledge_base (ent_code, knowledge_base_id),
+    INDEX idx_ent_status (ent_code, status),
+    INDEX idx_ent_default (ent_code, is_default)
+) COMMENT '租户知识库表';
+
+CREATE TABLE IF NOT EXISTS a_knowledge_document (
+    id                  BIGINT AUTO_INCREMENT PRIMARY KEY,
+    document_id         VARCHAR(36)   NOT NULL COMMENT '稳定文档ID（UUID）',
+    knowledge_base_id   VARCHAR(36)   NOT NULL COMMENT '所属知识库ID',
+    ent_code            VARCHAR(32)   NOT NULL COMMENT '租户编码',
+    source_name         VARCHAR(255)  NOT NULL COMMENT '文档来源名称',
+    content_type        VARCHAR(100)           COMMENT '文件内容类型',
+    size_bytes          BIGINT                 COMMENT '文件大小（字节）',
+    checksum_sha256     VARCHAR(64)            COMMENT '文件SHA-256摘要',
+    embedding_model     VARCHAR(150)           COMMENT '成功入库使用的嵌入模型身份',
+    version             INT           NOT NULL COMMENT '文档版本号',
+    status              VARCHAR(12)   NOT NULL COMMENT '状态: processing/ready/failed/superseded/deleted',
+    chunk_count         INT           NOT NULL DEFAULT 0 COMMENT '实际入库分片数',
+    error_message       VARCHAR(500)           COMMENT '安全错误摘要',
+    created_by          VARCHAR(32)            COMMENT '创建人用户ID',
+    created_at          DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at          DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_ent_document_version (ent_code, document_id, version),
+    INDEX idx_ent_base_status (ent_code, knowledge_base_id, status),
+    INDEX idx_ent_base_source (ent_code, knowledge_base_id, source_name),
+    INDEX idx_ent_document (ent_code, document_id)
+) COMMENT '知识文档版本表';
+
+CREATE TABLE IF NOT EXISTS a_token_usage_daily (
+    id                      BIGINT AUTO_INCREMENT PRIMARY KEY,
+    ent_code                VARCHAR(32)  NOT NULL COMMENT '租户编码',
+    user_id                 VARCHAR(32)  NOT NULL COMMENT '用户ID',
+    usage_date              DATE         NOT NULL COMMENT '统计日期',
+    model                   VARCHAR(50)  NOT NULL COMMENT '模型名称',
+    request_count           INT          NOT NULL DEFAULT 0 COMMENT '请求次数',
+    total_prompt_tokens     INT          NOT NULL DEFAULT 0 COMMENT '累计提示词 token',
+    total_completion_tokens INT          NOT NULL DEFAULT 0 COMMENT '累计生成 token',
+    total_tokens            INT          NOT NULL DEFAULT 0 COMMENT '累计总 token',
+    total_tool_calls        INT          NOT NULL DEFAULT 0 COMMENT '累计工具调用次数',
+    estimated_cost          DECIMAL(10,4) NOT NULL DEFAULT 0 COMMENT '估算费用（元）',
+    created_at              DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at              DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_daily (ent_code, user_id, usage_date, model),
+    INDEX idx_ent_date (ent_code, usage_date)
+) COMMENT '每日 token 用量汇总表';
+
+CREATE TABLE IF NOT EXISTS a_token_usage_monthly (
+    id                      BIGINT AUTO_INCREMENT PRIMARY KEY,
+    ent_code                VARCHAR(32)  NOT NULL COMMENT '租户编码',
+    usage_month             VARCHAR(7)   NOT NULL COMMENT '统计月份（yyyy-MM）',
+    model                   VARCHAR(50)  NOT NULL COMMENT '模型名称',
+    request_count           INT          NOT NULL DEFAULT 0 COMMENT '请求次数',
+    total_prompt_tokens     BIGINT       NOT NULL DEFAULT 0 COMMENT '累计提示词 token',
+    total_completion_tokens BIGINT       NOT NULL DEFAULT 0 COMMENT '累计生成 token',
+    total_tokens            BIGINT       NOT NULL DEFAULT 0 COMMENT '累计总 token',
+    active_users            INT          NOT NULL DEFAULT 0 COMMENT '活跃用户数',
+    estimated_cost          DECIMAL(12,4) NOT NULL DEFAULT 0 COMMENT '估算费用（元）',
+    created_at              DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at              DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_monthly (ent_code, usage_month, model),
+    INDEX idx_usage_month (usage_month)
+) COMMENT '每月 token 用量汇总表';
+
+CREATE TABLE IF NOT EXISTS a_billing_plan (
+    id                       BIGINT AUTO_INCREMENT PRIMARY KEY,
+    plan_code                VARCHAR(32)    NOT NULL COMMENT '套餐编码',
+    plan_name                VARCHAR(50)    NOT NULL COMMENT '套餐名称',
+    plan_type                VARCHAR(20)    NOT NULL COMMENT '套餐类型: free/basic/pro/enterprise',
+    monthly_token_quota      BIGINT         NOT NULL DEFAULT 0 COMMENT '每月 token 配额（0=不限）',
+    monthly_price            DECIMAL(10,2)  NOT NULL DEFAULT 0 COMMENT '月费（元）',
+    overage_price_per_1k     DECIMAL(10,4)  NOT NULL DEFAULT 0 COMMENT '超额部分每千 token 单价（元）',
+    max_conversations_per_day INT                    COMMENT '每日最大会话数（NULL=不限）',
+    max_tokens_per_request   INT                     COMMENT '单次请求最大 token（NULL=不限）',
+    max_users                INT                     COMMENT '最大用户数（NULL=不限）',
+    features                 TEXT                    COMMENT '套餐功能描述（JSON）',
+    status                   VARCHAR(10)    NOT NULL DEFAULT 'active' COMMENT '状态: active/discontinued',
+    created_at               DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at               DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_plan_code (plan_code)
+) COMMENT '计费套餐表';
+
+CREATE TABLE IF NOT EXISTS a_billing_price_rule (
+    id                  BIGINT AUTO_INCREMENT PRIMARY KEY,
+    model               VARCHAR(50)    NOT NULL COMMENT '模型名称（如 deepseek-chat）',
+    input_price_per_1k  DECIMAL(10,6)  NOT NULL COMMENT '输入 token 单价（元/千token）',
+    output_price_per_1k DECIMAL(10,6)  NOT NULL COMMENT '输出 token 单价（元/千token）',
+    effective_date      DATE           NOT NULL COMMENT '生效日期',
+    expired_date        DATE                    COMMENT '失效日期（NULL=永久有效）',
+    remark              VARCHAR(200)            COMMENT '备注',
+    created_at          DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_model (model),
+    INDEX idx_effective_date (effective_date)
+) COMMENT '模型计价规则表';
+
+CREATE TABLE IF NOT EXISTS a_billing_account (
+    id                     BIGINT AUTO_INCREMENT PRIMARY KEY,
+    ent_code               VARCHAR(32)    NOT NULL COMMENT '租户编码',
+    plan_code              VARCHAR(32)    NOT NULL COMMENT '当前套餐编码',
+    balance                DECIMAL(12,2)  NOT NULL DEFAULT 0 COMMENT '账户余额（元）',
+    total_recharged        DECIMAL(12,2)  NOT NULL DEFAULT 0 COMMENT '累计充值金额',
+    total_consumed         DECIMAL(12,2)  NOT NULL DEFAULT 0 COMMENT '累计消费金额',
+    used_tokens_this_month BIGINT         NOT NULL DEFAULT 0 COMMENT '本月已用 token 数',
+    billing_cycle_start    DATE           NOT NULL COMMENT '当前计费周期起始日',
+    status                 VARCHAR(10)    NOT NULL DEFAULT 'active' COMMENT '状态: active/suspended/arrears',
+    created_at             DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at             DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_ent_code (ent_code)
+) COMMENT '租户计费账户表';
+
+CREATE TABLE IF NOT EXISTS a_billing_transaction (
+    id                  BIGINT AUTO_INCREMENT PRIMARY KEY,
+    transaction_no      VARCHAR(36)    NOT NULL COMMENT '交易流水号（UUID）',
+    ent_code            VARCHAR(32)    NOT NULL COMMENT '租户编码',
+    type                VARCHAR(20)    NOT NULL COMMENT '类型: recharge/deduction/refund/monthly_fee/gift',
+    amount              DECIMAL(12,4)  NOT NULL COMMENT '交易金额（正=入账，负=扣除）',
+    balance_after       DECIMAL(12,2)  NOT NULL COMMENT '交易后余额',
+    token_count         INT                     COMMENT '关联 token 数（扣费时记录）',
+    model               VARCHAR(50)             COMMENT '关联模型（扣费时记录）',
+    conversation_id     VARCHAR(36)             COMMENT '关联会话ID（扣费时记录）',
+    description         VARCHAR(200)            COMMENT '交易描述',
+    operator            VARCHAR(50)             COMMENT '操作人',
+    created_at          DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_transaction_no (transaction_no),
+    INDEX idx_ent_code (ent_code),
+    INDEX idx_type (type),
+    INDEX idx_created_at (created_at)
+) COMMENT '计费流水表';
+
+CREATE TABLE IF NOT EXISTS a_billing_invoice (
+    id                  BIGINT AUTO_INCREMENT PRIMARY KEY,
+    invoice_no          VARCHAR(32)    NOT NULL COMMENT '账单编号',
+    ent_code            VARCHAR(32)    NOT NULL COMMENT '租户编码',
+    billing_month       VARCHAR(7)     NOT NULL COMMENT '账单月份（yyyy-MM）',
+    plan_code           VARCHAR(32)    NOT NULL COMMENT '套餐编码',
+    plan_fee            DECIMAL(10,2)  NOT NULL DEFAULT 0 COMMENT '套餐月费',
+    token_usage_fee     DECIMAL(10,2)  NOT NULL DEFAULT 0 COMMENT 'token 用量费用（超额部分）',
+    total_amount        DECIMAL(12,2)  NOT NULL DEFAULT 0 COMMENT '账单总金额',
+    total_tokens        BIGINT         NOT NULL DEFAULT 0 COMMENT '月度总 token 用量',
+    total_requests      INT            NOT NULL DEFAULT 0 COMMENT '月度总请求数',
+    status              VARCHAR(10)    NOT NULL DEFAULT 'pending' COMMENT '状态: pending/paid/overdue',
+    paid_at             DATETIME                COMMENT '支付时间',
+    created_at          DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at          DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_invoice_no (invoice_no),
+    UNIQUE KEY uk_ent_month (ent_code, billing_month),
+    INDEX idx_billing_month (billing_month)
+) COMMENT '月度账单表';
+
+CREATE TABLE IF NOT EXISTS a_llm_tool (
+    id            BIGINT AUTO_INCREMENT PRIMARY KEY,
+    tool_name     VARCHAR(64)  NOT NULL COMMENT 'Tool 名称',
+    tool_desc     VARCHAR(500) NOT NULL COMMENT 'Tool 描述',
+    input_schema  TEXT         NOT NULL COMMENT 'Tool 入参 JSON Schema',
+    sql_template  TEXT         NOT NULL COMMENT '只读 SQL 模板',
+    table_alias   VARCHAR(32)           COMMENT '主表别名，用于拼接租户条件',
+    result_limit  INT          NOT NULL DEFAULT 50 COMMENT '最大返回行数',
+    status        VARCHAR(10)  NOT NULL DEFAULT 'active' COMMENT '状态: active/inactive',
+    remark        VARCHAR(500)          COMMENT '备注',
+    created_at    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_tool_name (tool_name),
+    INDEX idx_status (status)
+) COMMENT 'LLM 动态 Tool 定义表';
+
+CREATE TABLE IF NOT EXISTS a_tool_call_log (
+    id             BIGINT AUTO_INCREMENT PRIMARY KEY,
+    trace_id       VARCHAR(36)  NOT NULL COMMENT '单次问答链路 ID',
+    conversation_id VARCHAR(36)          COMMENT '会话 ID',
+    message_id     VARCHAR(36)           COMMENT '助手消息 ID',
+    ent_code       VARCHAR(32)  NOT NULL COMMENT '租户编码',
+    user_id        VARCHAR(32)           COMMENT '用户 ID',
+    mode           VARCHAR(20)           COMMENT '问答模式',
+    model          VARCHAR(50)           COMMENT '使用模型',
+    tool_name      VARCHAR(64)  NOT NULL COMMENT 'Tool 名称',
+    tool_type      VARCHAR(20)  NOT NULL COMMENT 'Tool 来源: code/database',
+    arguments_json TEXT                  COMMENT 'Tool 入参 JSON',
+    result_count   INT          NOT NULL DEFAULT 0 COMMENT '返回结果条数',
+    duration_ms    BIGINT                COMMENT '调用耗时（毫秒）',
+    status         VARCHAR(10)  NOT NULL DEFAULT 'success' COMMENT '状态: success/error',
+    error_message  VARCHAR(500)          COMMENT '错误信息',
+    created_at     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_trace_id (trace_id),
+    INDEX idx_ent_conversation (ent_code, conversation_id),
+    INDEX idx_tool_name (tool_name),
+    INDEX idx_created_at (created_at),
+    INDEX idx_ent_created_at (ent_code, created_at)
+) COMMENT 'LLM Tool 命中流水表';
+
+INSERT INTO a_tenant (ent_code, ent_name, contact, phone, status) VALUES ('ENT001', 'SYNTH-TENANT-001', 'SYNTH-CONTACT-001', 'DEMO-PHONE-001', 'active');
+
+INSERT INTO a_tenant_user (user_id, ent_code, username, display_name, role, status) VALUES ('user001', 'ENT001', 'synth-user-001', 'SYNTH-USER-001', 'user', 'active');
+
+INSERT INTO a_billing_plan (plan_code, plan_name, plan_type, monthly_token_quota, monthly_price, overage_price_per_1k, max_conversations_per_day, max_tokens_per_request, max_users, features, status) VALUES ('DEMO', 'SYNTHETIC DEMO', 'prepaid', 100000, 0, 0, 100, 4096, 10, '{}', 'active');
+
+INSERT INTO a_billing_account (ent_code, plan_code, balance, total_recharged, total_consumed, used_tokens_this_month, billing_cycle_start, status) VALUES ('ENT001', 'DEMO', 100, 100, 0, 0, '2026-01-01', 'active');
+
+INSERT INTO a_billing_price_rule (model, input_price_per_1k, output_price_per_1k, effective_date, expired_date, remark) VALUES ('deepseek-chat', 0, 0, '2026-01-01', NULL, 'SYNTHETIC DEMO PRICE, NOT PROVIDER BILLING');
+
+INSERT INTO a_llm_tool (tool_name, tool_desc, input_schema, sql_template, table_alias, result_limit, status, remark) VALUES
+('query_dynamic_sales_orders',
+ '按客户名称查询销售订单列表，返回订单号、客户、订单日期、状态和金额',
+ '{"type":"object","properties":{"customerName":{"type":"string","description":"客户名称关键字"}},"required":["customerName"]}',
+ 'SELECT o.order_no, o.customer_name, o.order_date, o.status, o.total_amount FROM b_sales_order o WHERE o.customer_name LIKE CONCAT(''%'', :customerName, ''%'') ORDER BY o.order_date DESC LIMIT 20',
+ 'o',
+ 20,
+ 'active',
+ '动态 Tool 示例：销售订单查询'),
+('query_inventory_lot_location',
+ '按库存批次号查询物料或产品所在仓库、库位、可用库存、预留库存和在途库存',
+ '{"type":"object","properties":{"lotNo":{"type":"string","description":"库存批次号，例如：L20260303"}},"required":["lotNo"]}',
+ 'SELECT i.lot_no, i.product_code, i.product_name, i.warehouse, i.location, i.available_qty, i.reserved_qty, i.in_transit_qty, i.unit FROM b_inventory i WHERE i.lot_no = :lotNo ORDER BY i.product_code ASC',
+ 'i',
+ 20,
+ 'active',
+ '动态 Tool 示例：按库存批次号查询仓库库位');

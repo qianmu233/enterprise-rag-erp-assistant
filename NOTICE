@@ -1,0 +1,28 @@
+Spring AI RAG Demo - derivative project
+
+Based on ly1836/spring-ai-rag-demo, Apache License 2.0.
+Upstream URL: https://github.com/ly1836/spring-ai-rag-demo
+Upstream baseline: b0bd1fd571e57e4943b5768a41bef0dba86852b3 (4.0.0).
+The upstream LICENSE is retained unchanged. That baseline contains no root NOTICE.
+Existing source attribution and bundled vendor LICENSE/NOTICE files are retained.
+
+Downstream changes include optional Java/Python model gateway integration,
+answer sanitization and refusal-statistics refinements, direct-model protocol
+configuration/tests, diagnostic tooling and documentation. Existing ERP business
+tools, core RAG and Spring AI framework capabilities are not claimed as original
+downstream implementations. See README.md and docs/publication-sync.md.
+
+Bundled embedding model:
+sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 (Apache-2.0),
+revision e8f8c211226b894fcb81acc59f3b34ba3efd5f42.
+Model provenance, LFS identity and third-party licenses are documented in
+src/main/resources/models/embedding/MODEL.md and docs/third-party-resources.md.
+
+Independent safe snapshot (2026-10-26):
+Based on reviewed publication-main file contents at
+3efdbd00840f5f168437c5a77244b97a98368555, with no inherited Git history.
+Old business/contact records were excluded and replaced with explicitly
+synthetic demonstration seeds; ambiguous company-like test/UI labels were
+replaced without weakening test assertions. Upstream screenshots/GIFs,
+development logs, editor scaffolding and original development test-data are
+not distributed. The separate sentence-boundary experiment is not included.

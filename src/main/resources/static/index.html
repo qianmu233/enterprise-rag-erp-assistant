@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ERP 智能助手</title>
+  <link rel="stylesheet" href="style.css?v=13">
+  <link rel="stylesheet" href="vendor/highlight-github.min.css?v=1">
+</head>
+<body>
+
+  <!-- ============================== 顶部栏 ============================== -->
+  <div class="header">
+    <h1>&#x1f916; ERP 智能助手</h1>
+    <nav class="header-nav">
+      <button class="nav-btn active" data-tab="chat" onclick="switchTab('chat')">&#128172; AI 对话</button>
+      <button class="nav-btn" data-tab="history" onclick="switchTab('history')">&#128214; 历史记录</button>
+      <button class="nav-btn" data-tab="billing" onclick="switchTab('billing')">&#128176; 计费管理</button>
+      <button class="nav-btn" data-tab="tools" onclick="switchTab('tools')">&#128295; 工具管理</button>
+    </nav>
+    <div class="header-config">
+      <label>租户</label>
+      <select id="entCodeSelect" onchange="onEntCodeChange()">
+        <option value="ENT001">ENT001 - SYNTH-TENANT-001</option>
+        <option value="ENT002">ENT002 - SYNTH-TENANT-002</option>
+        <option value="ENT003">ENT003 - 试用企业（免费版）</option>
+        <option value="__custom__">自定义...</option>
+      </select>
+      <input type="text" id="entCodeCustom" placeholder="输入租户编码" style="display:none;"
+             onchange="onCustomEntCodeChange()">
+      <label>用户</label>
+      <input type="text" id="userId" value="U002" placeholder="X-User-Id">
+    </div>
+  </div>
+
+  <!-- ============================== TAB: AI 对话 ============================== -->
+  <div class="tab-panel active" id="tabChat">
+    <div class="main">
+      <!-- 左侧边栏 -->
+      <div class="sidebar">
+        <div class="sidebar-section knowledge-base-panel">
+          <h3>&#128218; 知识库</h3>
+          <select id="knowledgeBaseSelect" onchange="selectKnowledgeBase()">
+            <option value="">加载中...</option>
+          </select>
+          <div class="knowledge-actions">
+            <button class="btn btn-outline btn-sm" onclick="createKnowledgeBase()">新建</button>
+            <button class="btn btn-outline btn-sm" onclick="setDefaultKnowledgeBase()">设默认</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleKnowledgeBaseStatus()">启停</button>
+            <button class="btn btn-outline btn-sm" onclick="deleteKnowledgeBase()">删除</button>
+          </div>
+          <div class="knowledge-documents" id="knowledgeDocuments">
+            <p class="placeholder-text">请选择知识库</p>
+          </div>
+        </div>
+        <div class="sidebar-section">
+          <h3>&#128218; 文档管理</h3>
+          <button class="btn btn-outline btn-block" onclick="loadPresetDocs()" id="btnLoad">加载预置文档到向量库</button>
+        </div>
+        <div class="sidebar-section">
+          <div class="upload-area" id="dropZone" onclick="document.getElementById('fileInput').click()">
+            <div class="icon">&#128194;</div>
+            <p>点击或拖拽文件上传<br><span style="font-size:11px;color:var(--text-muted)">支持 PDF / Word / Excel / TXT</span></p>
+          </div>
+          <input type="file" id="fileInput" hidden accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.html,.rtf">
+          <div class="upload-row">
+            <button class="btn btn-primary btn-sm" id="btnUpload" disabled onclick="uploadFile()" style="margin-left:auto">上传</button>
+          </div>
+        </div>
+        <div class="sidebar-section" style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
+          <h3>&#128269; 文档搜索</h3>
+          <div class="search-input-row">
+            <input type="text" id="searchQuery" placeholder="搜索产品手册..." onkeydown="if(event.key==='Enter')searchDocs()">
+            <button class="btn btn-primary btn-sm" onclick="searchDocs()">搜索</button>
+          </div>
+          <div class="search-results" id="searchResults">
+            <p class="placeholder-text">输入关键词搜索向量库中的文档片段</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧聊天面板 -->
+      <div class="chat-panel">
+        <div class="chat-messages" id="chatMessages">
+          <div class="welcome" id="welcome">
+            <div class="icon">&#x1f916;</div>
+            <h2>ERP 智能助手</h2>
+            <p>我可以帮你查询 ERP 业务数据，也可以回答产品知识问题。试试问我：</p>
+            <div class="hints" id="hintContainer">
+              <div class="hint" style="opacity:.5;cursor:default">正在生成推荐问题…</div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <div class="chat-options">
+            <label>模式</label>
+            <div class="toggle-group" id="modeGroup">
+              <button class="active" data-mode="auto" onclick="setMode(this)">智能</button>
+              <button data-mode="data" onclick="setMode(this)">数据查询</button>
+              <button data-mode="knowledge" onclick="setMode(this)">知识问答</button>
+            </div>
+            <label style="margin-left:8px;">模型</label>
+            <select id="modelSelect" style="padding:4px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;background:var(--surface);color:var(--text);">
+              <option value="">加载中...</option>
+            </select>
+            <button class="btn btn-outline btn-sm chat-new-btn" onclick="newConversation()">新建对话</button>
+            <span class="conversation-tag" id="conversationTag" style="display:none"></span>
+          </div>
+          <div class="chat-input-row">
+            <textarea id="questionInput" placeholder="输入你的问题..." onkeydown="handleInputKey(event)"></textarea>
+            <button class="stop-btn" id="stopBtn" onclick="stopStreaming()" hidden>停止</button>
+            <button class="send-btn" id="sendBtn" onclick="sendQuestion()">&#10148;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== TAB: 历史记录 ============================== -->
+  <div class="tab-panel" id="tabHistory">
+    <div class="history-layout">
+      <div class="history-list-panel">
+        <div class="panel-toolbar">
+          <h3>&#128214; 对话记录</h3>
+          <button class="btn btn-primary btn-sm" onclick="loadConversations()">&#x21bb; 刷新</button>
+        </div>
+        <div class="history-list" id="historyList">
+          <p class="placeholder-text">点击刷新加载对话记录</p>
+        </div>
+      </div>
+      <div class="history-detail-panel">
+        <div class="panel-toolbar" id="historyDetailToolbar">
+          <h3 id="historyDetailTitle">选择一个对话查看详情</h3>
+        </div>
+        <div class="history-messages" id="historyMessages">
+          <p class="placeholder-text">&#8592; 从左侧选择一个对话</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== TAB: 计费管理 ============================== -->
+  <div class="tab-panel" id="tabBilling">
+    <div class="billing-layout">
+      <!-- 账户概览卡片 -->
+      <div class="billing-account-card" id="billingAccountCard">
+        <p class="placeholder-text">加载中...</p>
+      </div>
+      <!-- 子 Tab -->
+      <div class="billing-tabs">
+        <button class="billing-tab active" onclick="switchBillingTab(this,'billingPlans')">套餐</button>
+        <button class="billing-tab" onclick="switchBillingTab(this,'billingTransactions')">交易流水</button>
+        <button class="billing-tab" onclick="switchBillingTab(this,'billingUsageDaily')">每日用量</button>
+        <button class="billing-tab" onclick="switchBillingTab(this,'billingUsageMonthly')">月度用量</button>
+        <button class="billing-tab" onclick="switchBillingTab(this,'billingRecharge')">充值</button>
+      </div>
+      <div class="billing-content" id="billingPlans"><p class="placeholder-text">点击上方标签加载</p></div>
+      <div class="billing-content" id="billingTransactions" style="display:none"></div>
+      <div class="billing-content" id="billingUsageDaily" style="display:none"></div>
+      <div class="billing-content" id="billingUsageMonthly" style="display:none"></div>
+      <div class="billing-content" id="billingRecharge" style="display:none">
+        <div class="recharge-form">
+          <h4>账户充值</h4>
+          <div class="form-row"><label>充值金额（元）</label><input type="number" id="rechargeAmount" min="1" step="0.01" placeholder="100.00"></div>
+          <div class="form-row"><label>操作人</label><input type="text" id="rechargeOperator" placeholder="您的姓名"></div>
+          <button class="btn btn-primary" onclick="doRecharge()">确认充值</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== TAB: 工具管理 ============================== -->
+  <div class="tab-panel" id="tabTools">
+    <div class="billing-layout">
+      <div class="panel-toolbar">
+        <h3>&#128295; LLM Tool 管理</h3>
+        <div>
+          <button class="btn btn-outline btn-sm" onclick="refreshDynamicTools()">&#x21bb; 刷新加载</button>
+          <button class="btn btn-primary btn-sm" onclick="loadToolManagement()">刷新页面</button>
+        </div>
+      </div>
+      <div class="tool-grid">
+        <div class="billing-content tool-form-panel">
+          <h4>Tool 定义</h4>
+          <input type="hidden" id="toolId">
+          <div class="tool-form-grid">
+            <div class="form-row"><label>Tool 名称</label><input type="text" id="toolName" placeholder="query_sales_order"></div>
+            <div class="form-row"><label>状态</label><select id="toolStatus"><option value="active">启用</option><option value="inactive">停用</option></select></div>
+            <div class="form-row"><label>主表别名</label><input type="text" id="toolTableAlias" placeholder="o"></div>
+            <div class="form-row"><label>返回行数</label><input type="number" id="toolResultLimit" min="1" max="500" value="50"></div>
+          </div>
+          <div class="form-row"><label>Tool 描述</label><textarea id="toolDesc" rows="2"></textarea></div>
+          <div class="form-row">
+            <label>入参 Schema（JSON Schema）</label>
+            <div class="field-help">说明：字段名需与 SQL 模板中的参数名一致，description 会帮助模型理解参数含义。示例：按客户名称查询销售订单；示例数据：{"customerName":"华东客户"}。</div>
+            <textarea id="toolInputSchema" rows="9" placeholder="清空表单后会自动填入示例 JSON Schema"></textarea>
+          </div>
+          <div class="form-row"><label>SQL 模板</label><textarea id="toolSqlTemplate" rows="7"></textarea></div>
+          <div class="form-row"><label>备注</label><input type="text" id="toolRemark"></div>
+          <div class="tool-form-actions">
+            <button class="btn btn-primary" onclick="saveToolDefinition()">保存</button>
+            <button class="btn btn-outline" onclick="resetToolForm()">清空</button>
+          </div>
+        </div>
+        <div class="billing-content tool-list-panel">
+          <div class="panel-toolbar compact">
+            <h4>Tool 列表</h4>
+            <button class="btn btn-outline btn-sm" onclick="loadToolDefinitions()">刷新</button>
+          </div>
+          <div id="toolList"><p class="placeholder-text">加载中...</p></div>
+        </div>
+      </div>
+      <div class="billing-content">
+        <div class="panel-toolbar compact">
+          <h4>Tool 命中流水</h4>
+          <button class="btn btn-outline btn-sm" onclick="loadToolCallLogs()">刷新</button>
+        </div>
+        <div id="toolCallLogs"><p class="placeholder-text">加载中...</p></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="vendor/echarts.min.js?v=1"></script>
+  <script src="vendor/echarts-custom-word-cloud.auto.js?v=1"></script>
+  <script src="vendor/echarts-custom-liquid-fill.auto.js?v=1"></script>
+  <script src="vendor/marked.min.js?v=1"></script>
+  <script src="vendor/highlight.min.js?v=1"></script>
+  <script src="chart-adapter.js?v=9"></script>
+  <script src="app.js?v=35"></script>
+</body>
+</html>
