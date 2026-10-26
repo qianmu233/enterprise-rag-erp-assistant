@@ -1,4 +1,6 @@
-# Spring AI RAG Demo · 企业级 RAG / ERP 智能助手
+# Enterprise RAG & ERP Assistant
+
+**企业级 RAG 与 ERP 智能业务助手**
 
 基于 Spring AI 的企业知识检索与 ERP 业务数据助手，整合检索增强生成（RAG）、结构化业务查询、受控工具调用和流式响应，为企业文档问答与业务数据查询提供统一的对话入口。
 
