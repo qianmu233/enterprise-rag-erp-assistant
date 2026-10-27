@@ -132,7 +132,6 @@ mvn spring-boot:run
 
 ## 测试与验证
 
-截至 2026-10-26 的独立安全快照验收记录：
 
 | 验证范围 | 结果 |
 |---|---:|
@@ -141,8 +140,7 @@ mvn spring-boot:run
 | 离线诊断工具测试 | 16 项通过 |
 | Python 依赖一致性检查 | 通过 |
 
-以上是指定本地环境中的验证结果，不代表所有操作系统、数据库配置及模型供应商环境均已验证。
-
+以上是指定本地环境中的验证结果
 详细记录见 [`TEST_REPORT.md`](TEST_REPORT.md) 与 [`docs/SAFE_SNAPSHOT_AUDIT.md`](docs/SAFE_SNAPSHOT_AUDIT.md)。
 
 
