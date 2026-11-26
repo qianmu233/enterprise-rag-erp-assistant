@@ -1,16 +1,18 @@
 # Enterprise RAG & ERP Assistant
 
-**企业级 RAG 与 ERP 智能业务助手**
+**企业知识库与 ERP 智能问答平台**
+
+[English](README_EN.md)
 
 基于 Java 17、Spring Boot 与 Spring AI 构建的企业知识检索和 ERP 业务问答应用。系统结合检索增强生成（RAG）、结构化业务查询、模型工具调用与 SSE 流式响应，为企业文档问答和业务数据查询提供统一入口。
 
-本项目基于 [ly1836/spring-ai-rag-demo](https://github.com/ly1836/spring-ai-rag-demo) 二次开发，在已有应用基础上重点改进了 SSE 流式响应处理、模型与工具调用测试，以及问答质量诊断和检索评测。项目的上游来源及修改范围见仓库相关文档。
+本项目基于 [ly1836/spring-ai-rag-demo](https://github.com/ly1836/spring-ai-rag-demo) 二次开发，在已有应用基础上重点改进了 SSE 流式响应处理、模型与工具调用测试，以及问答质量诊断和检索评测。改动范围和发布快照见[来源与修改记录](docs/publication-sync.md)。
 
 ## 项目简介
 
 企业业务问答主要涉及两类数据：制度文档、产品资料等非结构化知识，以及 ERP 系统中的订单、库存等结构化业务数据。前者适合通过 RAG 检索相关证据，后者需要通过受控业务工具获取实际数据。
 
-项目使用 Spring AI 组织模型交互，支持按问题类型选择知识检索或 ERP 工具调用，并通过普通响应或 SSE 流式响应返回问答结果。
+项目使用 Spring AI 组织模型交互，提供知识检索、ERP 工具调用及两者并用的问答模式，支持普通响应与 SSE 流式响应。
 
 ## 核心功能
 
@@ -36,7 +38,7 @@
 |---|---|
 | `knowledge` | 企业文档与知识库问答 |
 | `data` | ERP 结构化业务数据查询 |
-| `auto` | 根据问题选择知识检索或业务工具 |
+| `auto` | 使用受管知识库检索，同时启用 ERP 工具 |
 
 同时支持会话管理、普通回答、SSE 流式响应及工具执行结果处理。
 
@@ -89,7 +91,7 @@ flowchart TD
     U["用户提问"] --> M{"问答模式"}
     M -->|knowledge| K["知识库检索"]
     M -->|data| T["ERP 工具调用"]
-    M -->|auto| A["Spring AI 选择处理路径"]
+    M -->|auto| A["启用知识库检索与工具调用"]
     A --> K
     A --> T
 
@@ -133,7 +135,8 @@ flowchart TD
 |---|---|
 | Java 17、Spring Boot | 后端服务、业务接口与应用配置 |
 | Spring AI | 模型调用、RAG 流程和工具调用 |
-| PostgreSQL、PgVector | 业务数据与文档向量检索 |
+| PostgreSQL、PgVector | 文档向量存储与检索 |
+| MySQL | ERP 业务数据、对话记录与计费 |
 | ONNX Runtime | 本地 Embedding 模型推理 |
 | Python、FastAPI | 可选模型网关 |
 | Docker Compose | 本地依赖与服务部署 |
@@ -152,7 +155,7 @@ flowchart TD
 | Python 离线诊断工具测试 | 16 项通过 |
 | Python 依赖一致性检查 | 通过 |
 
-各项验证属于不同测试范围及执行批次。详细结果见 [TEST_REPORT.md](TEST_REPORT.md) 和 [SAFE_SNAPSHOT_AUDIT.md](docs/SAFE_SNAPSHOT_AUDIT.md)。
+各项计数来自不同测试范围及批次。详细结果见 [测试报告](TEST_REPORT.md)和[发布快照审查](docs/SAFE_SNAPSHOT_AUDIT.md)。
 
 ### 2. RAG 问答质量评测
 
@@ -196,9 +199,13 @@ git lfs pull
 
 ### 2. 配置运行环境
 
-根据 `docker-compose.yml`、`deploy/` 目录和应用配置文件，准备 PostgreSQL、模型服务及相关连接参数。
+完整应用需要 PostgreSQL / PgVector、MySQL 和已配置的模型服务。使用 [Compose 配置](docker-compose.yml)中的本地数据库时，先在进程环境提供 `POSTGRES_PASSWORD` 和 `ERP_DB_PASSWORD`，再运行：
 
-数据库凭据和模型 API Key 通过环境变量或本地配置提供，不提交到 Git 仓库。
+~~~bash
+docker compose up -d pgvector mysql
+~~~
+
+本机 Java 进程需使用与数据库一致的 `SPRING_DATASOURCE_PGVECTOR_PASSWORD`、`SPRING_DATASOURCE_ERP_PASSWORD`。根据所选模型在进程环境配置相应 API Key。离线协议测试可以使用本地测试桩。[运行示例](docs/p2-demo.md)
 
 ### 3. 构建项目
 
@@ -208,24 +215,36 @@ mvn verify
 
 ### 4. 启动应用
 
-按项目部署配置启动所需容器服务，或在准备好外部依赖后使用 Maven 启动 Java 主应用：
+数据库就绪后，从当前检出的源码启动 Java 应用：
 
 ```bash
 mvn spring-boot:run
 ```
 
-启动端口、依赖服务及具体环境参数以仓库配置为准。使用 Docker Compose 启动完整应用时，无需同时在本机重复启动相同服务。
+默认访问 `http://127.0.0.1:8080`。Compose 中的 `app` 服务默认使用上游镜像，验证当前源码的改动请使用上面的 Maven 命令。
 
-## 相关文档
+## API 示例
 
+| 接口 | 用途 |
+|---|---|
+| `GET /api/ask` | 返回普通问答结果 |
+| `GET /api/ask/stream` | 返回类型化 SSE 事件和本轮会话 ID |
+| `GET /api/search` | 查询相关片段，供检查知识检索结果 |
+
+问答接口接收 `question`、`mode`，知识问答可指定 `knowledgeBaseId`。请求使用 `X-Ent-Code` 与 `X-User-Id` 传递租户和用户上下文，部署时需由可信身份入口提供。完整问答与协议复现见[运行示例](docs/p2-demo.md)。
+
+## 技术文档
+
+- [应用启动、问答流程与协议复现](docs/p2-demo.md)
+- [可选模型网关](docs/model-gateway.md)
 - [测试与质量验证报告](TEST_REPORT.md)
-- [RAG 质量比较与诊断](docs/p2-rag-quality-comparison.md)
-- [发布快照审查](docs/SAFE_SNAPSHOT_AUDIT.md)
+- [三轮问答评测](docs/rag-evaluation-summary.md)与[离线检索对照](docs/p2-rag-quality-comparison.md)
+- [来源与修改记录](docs/publication-sync.md)及[发布快照审查](docs/SAFE_SNAPSHOT_AUDIT.md)
 
 ## 许可证与来源
 
 本项目基于 [ly1836/spring-ai-rag-demo](https://github.com/ly1836/spring-ai-rag-demo) 进行二次开发。原有知识问答与 ERP 功能和后续的流式响应改造、测试及评测工作，按仓库的来源与修改说明区分。
 
-项目采用 **Apache License 2.0**。许可条款、上游来源及第三方资源信息见 [LICENSE](LICENSE)、[NOTICE](NOTICE) 与仓库中的相关说明。
+项目采用 **Apache License 2.0**。许可条款、上游来源及第三方资源信息见 [LICENSE](LICENSE)、[NOTICE](NOTICE) 与[第三方资源清单](docs/third-party-resources.md)。
 
 欢迎通过 Issues 交流问题与改进建议。

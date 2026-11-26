@@ -4,7 +4,7 @@
 
 ## 文件与数据边界
 
-源码、依赖声明、测试、固定技术 Fixture、模型、必要前端资源及文档的完整清单和摘要见 [SAFE_SNAPSHOT_MANIFEST.json](SAFE_SNAPSHOT_MANIFEST.json)。该清单排除自身内容摘要以避免循环自引用，不代表来源证明或替代原文件。
+源码、依赖声明、测试、固定技术 Fixture、模型、必要前端资源及文档的完整清单和摘要见 [SAFE_SNAPSHOT_MANIFEST.json](SAFE_SNAPSHOT_MANIFEST.json)。清单用于复核 2026-10-26 的初始快照并排除自身摘要。后续文档变更以 Git 提交为准。
 
 没有复制旧 `.git`、分支、标签、日志、缓存、运行产物、原开发 `test-data/`、编辑器/OpenSpec 工作记录、上游六张 PNG 或 GIF。本次构建新生成的 target 和本地工具报告受 Git 忽略，不纳入源码快照。
 

@@ -124,8 +124,8 @@ Phase 1 的 399 项默认 Java 测试保持；新增跨语言 IT 不由普通 Su
 
 ## 已知限制
 
-Java 已有直接使用 DeepSeek/OpenAI-compatible/Gemini 的路径；Python 不是默认运行依赖。直连与网关共用 Java RAG/Agent 主链，完整配置、失败语义差异及当前回归证据见 [面试与复现指南](../P2_INTERVIEW_GUIDE.md) 和 [本轮审查](p2-architecture-review.md)。本轮只修正现有 OpenAI-compatible API 前缀，不更换默认模型、不增加新的 provider 或 Python 业务职责。
+Java 支持直连 DeepSeek、OpenAI-compatible 接口和 Gemini。可选 Python 网关与直连路径共用 Java RAG 和工具调用链。OpenAI-compatible 地址需包含供应商的完整 API 前缀。配置、复现及失败语义见[运行示例](p2-demo.md)和[架构审查记录](p2-architecture-review.md)。
 
 这是固定本地上游的模型协议增强，不是生产模型调度平台。未证明真实模型质量、成本、并发吞吐或生产 SLA；未实现分布式限流、重试、模型缓存和供应商容灾。Gateway 认证是本地演示 token，实际部署认证、TLS 和访问控制不在本阶段范围内。
 
-保持上游出处、许可及原 RAG 评测限制；简历只能表述已实现且实际验证的网关增量，不能将此处的协议 Mock 测试写成真实模型效果或完整生产 RAG 端到端验收。
+本地测试桩验证模型协议、错误分类和流式完整性。真实问答质量与证据覆盖使用独立的 [RAG 评测记录](rag-evaluation-summary.md)。
