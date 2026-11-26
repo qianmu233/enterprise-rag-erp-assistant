@@ -87,9 +87,9 @@ Windows PowerShell 的 `ErrorActionPreference=Stop` 会将 JVM stderr 警告当�
 - 缺失非 Gateway provider Bean 的部分历史扩展路径仍可能走默认 Builder；当前已验收的三类 provider 和严格未知 ID/Gateway 失败路径有回归，不宣称所有扩展 provider 可用。
 - 该原开发仓库存在旧上游历史及开发配置风险，不代表当前可直接重新公开发布；本轮不进行凭据扫描扩围、读取 `.env` 或 Git 发布。
 
-启动方式、面试问答、贡献边界和可核验简历条目见 [P2_INTERVIEW_GUIDE.md](../P2_INTERVIEW_GUIDE.md)。
+启动方式与协议复现见[运行示例](p2-demo.md)。上游来源与二次开发范围见[来源记录](publication-sync.md)。
 
-## 2026-10-21 收尾复核：等待确认提交
+## 2026-10-21 直连配置与评测复核
 
 分支和 HEAD 保持 `feature/enterprise-ai-upgrade` / `0b6a54b22095a0752b49490add4b9fc0225fb25d`。暂存区为空。起始状态除本轮 9 个文件外，仅有此前保留的未跟踪 `test-data/`；未读取、移动或清理该目录。本次仅补充文档，没有进一步生产代码修改。
 
@@ -111,23 +111,6 @@ Windows PowerShell 的 `ErrorActionPreference=Stop` 会将 JVM stderr 警告当�
 
 **下一轮只推荐一项：补齐固定 50 条用例的逐题证据链诊断包。** 在独立报告中记录实际使用的 chunk ID/版本/顺序、检索分数、证据哈希、模型标识/参数和关键事实覆盖标注，区分“事实未进入上下文”和“证据充分仍拒答”。仅对仓库公开 fixture 在本地受控报告保留正文，默认不记录真实业务 Prompt/Tool 参数，不提交日志。先让上述三类问题可以确定归因，再决定是否值得做邻片补全或提示词实验。此项尚未实现，也不作为本轮冻结前置条件；不改样本、不放宽引用/拒答标准，不编造提升。
 
-### 拟提交清单
+### 复核范围
 
-本轮原有 9 个文件加本次新增的简洁演示文档，共 **10 个**；未将历史用户数据或构建产物混入：
-
-```text
-README.md
-P2_INTERVIEW_GUIDE.md
-docs/model-gateway.md
-docs/p2-architecture-review.md
-docs/p2-demo.md
-src/main/java/com/example/rag/chat/ModelRegistry.java
-src/main/java/com/example/rag/chat/client/AssistantClientProvider.java
-src/main/resources/application.yml
-src/test/java/com/example/rag/chat/OpenAiDirectHttpTest.java
-src/test/java/com/example/rag/chat/client/AssistantClientProviderTest.java
-```
-
-建议 Commit Message：`fix(p2): correct DashScope endpoint and finalize verified demo docs`。待用户确认后才能按明确清单暂存并创建本地 commit；禁止无差别 add、覆盖旧改动或直接 push。
-
-冻结判断：已具备进入简历准备和技术复习的工程证据及可解释边界，建议停止功能扩张；真实模型小样本与下一轮 RAG 证据诊断均可独立决策。完整真实 RAG/ERP 演示仍需已授权模型和隔离数据库，不能将当前协议演示等同于全业务生产验收。简洁演示见 [p2-demo.md](p2-demo.md)。
+此次复核覆盖模型路由、OpenAI-compatible 地址、直连协议测试以及上述三类误拒答的历史记录。完整 RAG 与 ERP 场景需配置模型和隔离数据库。默认协议测试使用本地模型桩。[运行示例](p2-demo.md)
